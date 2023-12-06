@@ -10,7 +10,6 @@ public class BarberStyle : Auditable
     public Style Style { get; set; }
     public long BarberId { get; set; }
     public Barber Barber { get; set; }
-    public string Image { get; set; }
     public decimal Cost { get; set; }
     public decimal Duration { get; set; }
     public decimal Rating { get; set; }

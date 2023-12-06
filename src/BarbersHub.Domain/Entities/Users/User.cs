@@ -14,7 +14,7 @@ public class User : Auditable
     public string Password { get; set; }
     public string UserName { get; set; }
     public string PhoneNumber { get; set; }
-    public string Image { get; set; }
+    public string Salt { get; set; }
     public GenderType Gender { get; set; }
     public Role Role { get; set; }
     public DateTime DateOfBirth { get; set; }

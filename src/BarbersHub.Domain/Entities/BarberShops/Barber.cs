@@ -13,7 +13,6 @@ public class Barber : Auditable
     public string Password { get; set; }
     public string PhoneNumber { get; set; }
     public GenderType Gender { get; set; }
-    public string Image { get; set; }
     public long BarberShopId { get; set; }
     public BarberShop BarberShop { get; set; }
     public string Instagram { get; set; }
