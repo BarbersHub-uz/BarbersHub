@@ -19,10 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BarbersHub.Data\BarbersHub.Data.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\BarbersHub.Service\BarbersHub.Service.csproj" />
   </ItemGroup>
 
 </Project>
