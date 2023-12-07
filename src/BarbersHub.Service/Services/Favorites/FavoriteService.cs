@@ -1,6 +1,6 @@
 ﻿using BarbersHub.Service.Configurations;
-using BarbersHub.Service.DTOs.Favorites.Favorites;
 using BarbersHub.Service.Interfaces.Favorites;
+using BarbersHub.Service.DTOs.Favorites.Favorites;
 
 namespace BarbersHub.Service.Services.Favorites;
 

@@ -8,4 +8,5 @@ public class CommentForResultDto
     public long Id { get; set; }
     public UserForResultDto User { get; set; }
     public BarberStyleForResultDto BarberStyle { get; set; }
+    public bool IsDeleted { get; set; }
 }

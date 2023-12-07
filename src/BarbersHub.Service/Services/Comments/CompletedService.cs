@@ -1,17 +1,17 @@
 ﻿using BarbersHub.Service.Configurations;
 using BarbersHub.Service.Interfaces.Comments;
-using BarbersHub.Service.DTOs.Comments.Comments;
+using BarbersHub.Service.DTOs.Comments.Completeds;
 
 namespace BarbersHub.Service.Services.Comments;
 
-public class CommentService : ICommentService
+public class CompletedService : ICompletedService
 {
-    public Task<CommentForResultDto> AddAsync(CommentForCreationDto dto)
+    public Task<CompletedForResultDto> AddAsync(CompletedForCreationDto dto)
     {
         throw new NotImplementedException();
     }
 
-    public Task<CommentForResultDto> ModifyAsync(long id, CommentForUpdateDto dto)
+    public Task<CompletedForResultDto> ModifyAsync(long id, CompletedForUpdateDto dto)
     {
         throw new NotImplementedException();
     }
@@ -21,12 +21,12 @@ public class CommentService : ICommentService
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<CommentForResultDto>> RetrieveAllAsync(PaginationParams @params)
+    public Task<IEnumerable<CompletedForResultDto>> RetrieveAllAsync(PaginationParams @params)
     {
         throw new NotImplementedException();
     }
 
-    public Task<CommentForResultDto> RetrieveByIdAsync(long id)
+    public Task<CompletedForResultDto> RetrieveByIdAsync(long id)
     {
         throw new NotImplementedException();
     }

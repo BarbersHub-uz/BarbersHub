@@ -12,4 +12,5 @@ public class OrderForResultDto
     public BarberForResultDto Barber { get; set; }
     public DateTime OrderDate { get; set; }
     public ICollection<CompletedForResultDto> Completeds { get; set; }
+    public bool IsDeleted { get; set; }
 }

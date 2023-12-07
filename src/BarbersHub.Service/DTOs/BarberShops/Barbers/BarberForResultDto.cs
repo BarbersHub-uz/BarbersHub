@@ -22,4 +22,5 @@ public class BarberForResultDto
     public ICollection<OrderForResultDto> Orders { get; set; }
     public ICollection<BarberStyleForResultDto> BarberStyles { get; set; }
     public ICollection<BarberAssetForResultDto> BarberAssets { get; set; }
+    public bool IsDeleted { get; set; }
 }

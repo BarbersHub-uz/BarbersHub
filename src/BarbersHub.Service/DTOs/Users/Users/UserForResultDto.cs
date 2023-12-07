@@ -20,6 +20,6 @@ public class UserForResultDto
     public ICollection<FavoriteForResultDto> Favorites { get; set; }
     public ICollection<CommentForResultDto> Comments { get; set; }
     public ICollection<OrderForResultDto> Orders { get; set; }
-    public ICollection<UserAssetForResultDto> UserAssets { get; set; }
+    public ICollection<UserAssetForResultDto> Assets { get; set; }
     public bool IsDeleted { get; set; }
 }
