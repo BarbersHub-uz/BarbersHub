@@ -42,6 +42,7 @@ public class UserService : IUserService
         data.Password = HashedPassword.Hash;
         data.Salt = HashedPassword.Salt;
         data.Role = Domain.Enums.Role.User;
+
         var CreatedData = await this._userRepository.InsertAsync(data);
 
         return this._mapper.Map<UserForResultDto>(CreatedData);
