@@ -3,12 +3,12 @@ using BarbersHub.Service.Helpers;
 using BarbersHub.Data.IRepositories;
 using Microsoft.EntityFrameworkCore;
 using BarbersHub.Service.Exceptions;
+using BarbersHub.Service.Extensions;
 using BarbersHub.Domain.Entities.Users;
 using BarbersHub.Service.Configurations;
 using BarbersHub.Service.DTOs.Users.Users;
 using BarbersHub.Service.Interfaces.Users;
 using BarbersHub.Service.DTOs.ChangePassword;
-using BarbersHub.Service.Extensions;
 
 namespace BarbersHub.Service.Services.Users;
 
@@ -45,7 +45,6 @@ public class UserService : IUserService
         var CreatedData = await this._userRepository.InsertAsync(data);
 
         return this._mapper.Map<UserForResultDto>(CreatedData);
-
     }
 
     public async Task<bool> ChangePasswordAsync(long id, ChangePasswordDto dto)
@@ -110,7 +109,13 @@ public class UserService : IUserService
             .ToPagedList(@params)
             .ToListAsync();
 
-        return this._mapper.Map<IEnumerable<UserForResultDto>>(users);
+        var result = this._mapper.Map<IEnumerable<UserForResultDto>>(users);
+        foreach( var user in result)
+        {
+            user.Role = user.Role.ToString();
+            user.Gender = user.Gender.ToString();
+        }
+        return result;
     }
 
     public async Task<UserForResultDto> RetrieveByIdAsync(long id)
@@ -127,6 +132,9 @@ public class UserService : IUserService
         if(user is null)
             throw new BarberException(404, "User is not found");
 
-        return this._mapper.Map<UserForResultDto>(user);
+        var result = this._mapper.Map<UserForResultDto>(user);
+        result.Role = result.Role.ToString();
+        result.Gender = result.Gender.ToString();
+        return result;
     }
 }
