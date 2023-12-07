@@ -7,4 +7,5 @@ public class CompletedForResultDto
     public long Id { get; set; }
     public OrderForResultDto Order { get; set; }
     public decimal Rating { get; set; }
+    public bool IsDeleted { get; set; }
 }

@@ -18,4 +18,5 @@ public class BarberStyleForResultDto
     public ICollection<CommentForResultDto> Comments { get; set; }
     public ICollection<FavoriteForResultDto> Favorites { get; set; }
     public ICollection<BarberStyleAssetForResultDto> BarberStyleAssets { get; set; }
+    public bool IsDeleted { get; set; }
 }
