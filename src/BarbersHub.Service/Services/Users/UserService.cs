@@ -1,13 +1,14 @@
 ﻿using AutoMapper;
 using BarbersHub.Service.Helpers;
 using BarbersHub.Data.IRepositories;
+using Microsoft.EntityFrameworkCore;
+using BarbersHub.Service.Exceptions;
 using BarbersHub.Domain.Entities.Users;
 using BarbersHub.Service.Configurations;
 using BarbersHub.Service.DTOs.Users.Users;
 using BarbersHub.Service.Interfaces.Users;
 using BarbersHub.Service.DTOs.ChangePassword;
-using BarbersHub.Service.Exceptions;
-using Microsoft.EntityFrameworkCore;
+using BarbersHub.Service.Extensions;
 
 namespace BarbersHub.Service.Services.Users;
 
@@ -29,6 +30,7 @@ public class UserService : IUserService
         var user = await this._userRepository
             .SelectAll()
             .Where(u => u.UserName.ToLower() == dto.UserName.ToLower() && !u.IsDeleted)
+            .AsNoTracking()
             .FirstOrDefaultAsync();
 
         if(user is not null)
@@ -67,23 +69,64 @@ public class UserService : IUserService
         return true;
     }
 
-    public Task<UserForResultDto> ModifyAsync(long id, UserForUpdateDto dto)
+    public async Task<UserForResultDto> ModifyAsync(long id, UserForUpdateDto dto)
     {
-        throw new NotImplementedException();
+        var user = await this._userRepository
+            .SelectAll()
+            .Where(u => u.Id == id && !u.IsDeleted)
+            .FirstOrDefaultAsync();
+        if(user is null)
+            throw new BarberException(404, "User is not found");
+
+        user.UpdatedAt = DateTime.UtcNow;
+        var person = this._mapper.Map(dto, user);
+        await this._userRepository.UpdateAsync(person);
+        return this._mapper.Map<UserForResultDto>(person);
     }
 
-    public Task<bool> RemoveAsync(long id)
+    public async Task<bool> RemoveAsync(long id)
     {
-        throw new NotImplementedException();
+        var user = await this._userRepository
+            .SelectAll()
+            .Where(u => u.Id == id && !u.IsDeleted)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+        if(user is null)
+            throw new BarberException(404, "User is not found");
+
+        return await this._userRepository.DeleteAsync(id);
     }
 
-    public Task<IEnumerable<UserForResultDto>> RetrieveAllAsync(PaginationParams @params)
+    public async Task<IEnumerable<UserForResultDto>> RetrieveAllAsync(PaginationParams @params)
     {
-        throw new NotImplementedException();
+        var users = await this._userRepository
+            .SelectAll()
+            .Where(u => u.IsDeleted == false)
+            .Include(u => u.Assets)
+            //.Include(u => u.Comments)
+            //.Include(u => u.Favorites)
+            //.Include(u => u.Orders)
+            .AsNoTracking()
+            .ToPagedList(@params)
+            .ToListAsync();
+
+        return this._mapper.Map<IEnumerable<UserForResultDto>>(users);
     }
 
-    public Task<UserForResultDto> RetrieveByIdAsync(long id)
+    public async Task<UserForResultDto> RetrieveByIdAsync(long id)
     {
-        throw new NotImplementedException();
+        var user = await this._userRepository
+            .SelectAll()
+            .Where(u => u.Id == id && !u.IsDeleted)
+            .Include(u => u.Assets)
+            //.Include(u => u.Comments)
+            //.Include(u => u.Favorites)
+            //.Include(u => u.Orders)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+        if(user is null)
+            throw new BarberException(404, "User is not found");
+
+        return this._mapper.Map<UserForResultDto>(user);
     }
 }

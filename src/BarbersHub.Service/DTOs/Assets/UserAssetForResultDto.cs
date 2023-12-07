@@ -9,4 +9,5 @@ public class UserAssetForResultDto
     public string Extension { get; set; }
     public long Size { get; set; }
     public string Type { get; set; }
+    public bool IsDeleted { get; set; }
 }
