@@ -11,6 +11,6 @@ public class BarberShopForResultDto
     public string Description { get; set; }
     public string Location { get; set; }
     public ICollection<BarberForResultDto> Barbers { get; set; }
-    public ICollection<BarberShopAssetForResultDto> BarberShopAssets { get; set; }
+    public ICollection<BarberShopAssetForResultDto> Assets { get; set; }
     public bool IsDeleted { get; set; }
 }

@@ -12,6 +12,7 @@ public class BarberForCreationDto
     public string Password { get; set; }
     public string PhoneNumber { get; set; }
     public GenderType Gender { get; set; }
+    public Role Role { get; set; }
     public long BarberShopId { get; set; }
     public string Instagram { get; set; }
     public string Telegram { get; set; }
