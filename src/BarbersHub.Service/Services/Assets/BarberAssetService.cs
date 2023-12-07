@@ -5,7 +5,7 @@ using BarbersHub.Service.Interfaces.Assets;
 
 namespace BarbersHub.Service.Services.Assets;
 
-internal class BarberAssetService : IBarberAssetService
+public class BarberAssetService : IBarberAssetService
 {
     public Task<BarberAssetForResultDto> CreateAsync(long barberId, IFormFile formFile)
     {

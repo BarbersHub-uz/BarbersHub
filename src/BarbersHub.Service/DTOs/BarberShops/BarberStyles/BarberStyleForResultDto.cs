@@ -17,6 +17,6 @@ public class BarberStyleForResultDto
     public decimal Rating { get; set; }
     public ICollection<CommentForResultDto> Comments { get; set; }
     public ICollection<FavoriteForResultDto> Favorites { get; set; }
-    public ICollection<BarberStyleAssetForResultDto> BarberStyleAssets { get; set; }
+    public ICollection<BarberStyleAssetForResultDto> Assets { get; set; }
     public bool IsDeleted { get; set; }
 }

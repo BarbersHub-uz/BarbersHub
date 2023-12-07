@@ -14,11 +14,13 @@ public class Barber : Auditable
     public string Password { get; set; }
     public string PhoneNumber { get; set; }
     public GenderType Gender { get; set; }
+    public Role Role { get; set; }
     public long BarberShopId { get; set; }
     public BarberShop BarberShop { get; set; }
     public string Instagram { get; set; }
     public string Telegram { get; set; }
     public decimal Rating { get; set; }
+    public string Salt { get; set; }
     public DateTime DateOfBirth { get; set; }
     public ICollection<Order> Orders { get; set; }
     public ICollection<BarberStyle> BarberStyles { get; set; }
