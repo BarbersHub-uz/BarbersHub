@@ -3,6 +3,8 @@ using BarbersHub.Service.DTOs.Assets;
 using BarbersHub.Domain.Entities.Users;
 using BarbersHub.Domain.Entities.Assets;
 using BarbersHub.Service.DTOs.Users.Users;
+using BarbersHub.Domain.Entities.BarberShops;
+using BarbersHub.Service.DTOs.BarberShops.BarberShops;
 
 namespace BarbersHub.Service.Mappers;
 
@@ -15,5 +17,11 @@ public class MappingProfile : Profile
         CreateMap<User, UserForCreationDto>().ReverseMap();
 
         CreateMap<UserAsset, UserAssetForResultDto>().ReverseMap();
+
+        // BarberShop
+
+        CreateMap<BarberShop, BarberShopForUpdateDto>().ReverseMap();
+        CreateMap<BarberShop, BarberShopForResultDto>().ReverseMap();
+        CreateMap<BarberShop, BarberShopForCreationDto>().ReverseMap();
     }
 }

@@ -7,6 +7,8 @@ using BarbersHub.Service.Helpers;
 using System.Security.Principal;
 using BarbersHub.Service.Interfaces.Users;
 using BarbersHub.Service.Services.Users;
+using BarbersHub.Service.Interfaces.BarberShops;
+using BarbersHub.Service.Services.BarberShops;
 
 namespace BarbersHub.Api.Extensions;
 
@@ -22,5 +24,7 @@ public static class ServiceExtension
 
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IUserAssetService, UserAssetService>();
+
+        services.AddScoped<IBarberShopService, BarberShopService>();
     }
 }
