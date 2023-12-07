@@ -14,8 +14,8 @@ public class UserForResultDto
     public string Email { get; set; }
     public string UserName { get; set; }
     public string PhoneNumber { get; set; }
-    public GenderType Gender { get; set; }
-    public Role Role { get; set; }
+    public string Gender { get; set; }
+    public string Role { get; set; }
     public DateTime DateOfBirth { get; set; }
     public ICollection<FavoriteForResultDto> Favorites { get; set; }
     public ICollection<CommentForResultDto> Comments { get; set; }

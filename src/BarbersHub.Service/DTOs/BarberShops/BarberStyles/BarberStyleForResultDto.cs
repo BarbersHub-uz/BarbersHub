@@ -12,12 +12,10 @@ public class BarberStyleForResultDto
     public long Id { get; set; }    
     public StyleForResultDto Style { get; set; }
     public BarberStyleForResultDto Barber { get; set; }
-    public string Image { get; set; }
     public decimal Cost { get; set; }
     public decimal Duration { get; set; }
     public decimal Rating { get; set; }
     public ICollection<CommentForResultDto> Comments { get; set; }
     public ICollection<FavoriteForResultDto> Favorites { get; set; }
     public ICollection<BarberStyleAssetForResultDto> BarberStyleAssets { get; set; }
-
 }

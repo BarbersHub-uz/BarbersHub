@@ -11,7 +11,6 @@ public class BarberForUpdateDto
     public string Email { get; set; }
     public string PhoneNumber { get; set; }
     public GenderType Gender { get; set; }
-    public IFormFile Image { get; set; }
     public long BarberShopId { get; set; }
     public string Instagram { get; set; }
     public string Telegram { get; set; }
