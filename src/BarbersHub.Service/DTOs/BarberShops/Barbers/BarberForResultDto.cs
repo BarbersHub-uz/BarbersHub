@@ -2,6 +2,7 @@
 using BarbersHub.Service.DTOs.Orders.Orders;
 using BarbersHub.Service.DTOs.BarberShops.BarberShops;
 using BarbersHub.Service.DTOs.BarberShops.BarberStyles;
+using BarbersHub.Service.DTOs.Assets;
 
 namespace BarbersHub.Service.DTOs.BarberShops.Barbers;
 
@@ -22,5 +23,6 @@ public class BarberForResultDto
     public DateTime DateOfBirth { get; set; }
     public ICollection<OrderForResultDto> Orders { get; set; }
     public ICollection<BarberStyleForResultDto> BarberStyles { get; set; }
+    public ICollection<BarberAssetForResultDto> BarberAssets { get; set; }
 
 }

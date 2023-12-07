@@ -1,6 +1,7 @@
 ﻿using BarbersHub.Domain.Enums;
 using BarbersHub.Domain.Commons;
 using BarbersHub.Domain.Entities.Orders;
+using BarbersHub.Domain.Entities.Assets;
 using BarbersHub.Domain.Entities.Comments;
 using BarbersHub.Domain.Entities.Favorites;
 
@@ -21,4 +22,5 @@ public class User : Auditable
     public ICollection<Favorite> Favorites { get; set; }
     public ICollection<Comment> Comments { get; set; }
     public ICollection<Order> Orders { get; set; }
+    public ICollection<UserAsset> Assets { get; set; }
 }
