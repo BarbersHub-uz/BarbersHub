@@ -1,6 +1,7 @@
 ﻿using BarbersHub.Domain.Enums;
 using BarbersHub.Domain.Commons;
 using BarbersHub.Domain.Entities.Orders;
+using BarbersHub.Domain.Entities.Assets;
 
 namespace BarbersHub.Domain.Entities.BarberShops;
 
@@ -21,4 +22,5 @@ public class Barber : Auditable
     public DateTime DateOfBirth { get; set; }
     public ICollection<Order> Orders { get; set; }
     public ICollection<BarberStyle> BarberStyles { get; set; }
+    public ICollection<BarberAsset> Assets { get; set; }
 }

@@ -6,25 +6,26 @@ using BarbersHub.Domain.Entities.Assets;
 using BarbersHub.Domain.Entities.Favorites;
 using BarbersHub.Domain.Entities.BarberShops;
 
-namespace BarbersHub.Data.DbContexts;
-
-public class AppDbContext : DbContext
+namespace BarbersHub.Data.DbContexts
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
-    { }
+    public class AppDbContext : DbContext
+    {
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        { }
 
-    DbSet<User> Users { get; set; }
-    DbSet<Style> Styles { get; set; }
-    DbSet<Order> Orders { get; set; }
-    DbSet<Asset> Assets { get; set; }
-    DbSet<Barber> Barbers { get; set; }
-    DbSet<Comment> Comments { get; set; }
-    DbSet<Favorite> Favorites { get; set; }
-    DbSet<UserAsset> UserAssets { get; set; }
-    DbSet<Completed> Completeds { get; set; }
-    DbSet<BarberShop> BarberShops { get; set; }
-    DbSet<BarberStyle> BarberStyles { get; set; }
-    DbSet<BarberAsset> BarberAssets { get; set; }
-    DbSet<BarberShopAsset> BarberShopAssets { get; set; }
-    DbSet<BarberStyleAsset> BarberStyleAssets { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Style> Styles { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Asset> Assets { get; set; }
+        public DbSet<Barber> Barbers { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Favorite> Favorites { get; set; }
+        public DbSet<UserAsset> UserAssets { get; set; }
+        public DbSet<Completed> Completeds { get; set; }
+        public DbSet<BarberShop> BarberShops { get; set; }
+        public DbSet<BarberStyle> BarberStyles { get; set; }
+        public DbSet<BarberAsset> BarberAssets { get; set; }
+        public DbSet<BarberShopAsset> BarberShopAssets { get; set; }
+        public DbSet<BarberStyleAsset> BarberStyleAssets { get; set; }
+    }
 }

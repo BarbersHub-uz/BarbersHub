@@ -1,4 +1,5 @@
 ﻿using BarbersHub.Domain.Commons;
+using BarbersHub.Domain.Entities.Assets;
 using BarbersHub.Domain.Entities.Comments;
 using BarbersHub.Domain.Entities.Favorites;
 
@@ -15,4 +16,5 @@ public class BarberStyle : Auditable
     public decimal Rating { get; set; }
     public ICollection<Comment> Comments { get; set; }
     public ICollection<Favorite> Favorites { get; set; }
+    public ICollection<BarberStyleAsset> Assets { get; set; }
 }

@@ -7,13 +7,12 @@ namespace BarbersHub.Data.Repositories;
 
 public class Repository<TEntity> : IRepository<TEntity> where TEntity : Auditable
 {
-    private readonly DbSet<TEntity> _dbSet;
     private readonly AppDbContext _dbContext;
-
-    public Repository(DbSet<TEntity> dbSet, AppDbContext dbContext)
+    private readonly DbSet<TEntity> _dbSet;
+    public Repository(AppDbContext dbContext)
     {
-        this._dbSet = dbSet;
         this._dbContext = dbContext;
+        this._dbSet = dbContext.Set<TEntity>();
     }
 
     public async Task<bool> DeleteAsync(long id)

@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BarbersHub.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231206094912_InitialMigrations")]
-    partial class InitialMigrations
+    [Migration("20231206195116_FirstMigration")]
+    partial class FirstMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -620,7 +620,7 @@ namespace BarbersHub.Data.Migrations
             modelBuilder.Entity("BarbersHub.Domain.Entities.Assets.BarberAsset", b =>
                 {
                     b.HasOne("BarbersHub.Domain.Entities.BarberShops.Barber", "Barber")
-                        .WithMany()
+                        .WithMany("Assets")
                         .HasForeignKey("BarberId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -631,7 +631,7 @@ namespace BarbersHub.Data.Migrations
             modelBuilder.Entity("BarbersHub.Domain.Entities.Assets.BarberShopAsset", b =>
                 {
                     b.HasOne("BarbersHub.Domain.Entities.BarberShops.BarberShop", "BarberShop")
-                        .WithMany()
+                        .WithMany("Assets")
                         .HasForeignKey("BarberShopId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -642,7 +642,7 @@ namespace BarbersHub.Data.Migrations
             modelBuilder.Entity("BarbersHub.Domain.Entities.Assets.BarberStyleAsset", b =>
                 {
                     b.HasOne("BarbersHub.Domain.Entities.BarberShops.BarberStyle", "BarberStyle")
-                        .WithMany()
+                        .WithMany("Assets")
                         .HasForeignKey("BarberStyleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -653,7 +653,7 @@ namespace BarbersHub.Data.Migrations
             modelBuilder.Entity("BarbersHub.Domain.Entities.Assets.UserAsset", b =>
                 {
                     b.HasOne("BarbersHub.Domain.Entities.Users.User", "User")
-                        .WithMany()
+                        .WithMany("Assets")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -663,6 +663,8 @@ namespace BarbersHub.Data.Migrations
 
             modelBuilder.Entity("BarbersHub.Domain.Entities.BarberShops.Barber", b =>
                 {
+                    b.Navigation("Assets");
+
                     b.Navigation("BarberStyles");
 
                     b.Navigation("Orders");
@@ -670,11 +672,15 @@ namespace BarbersHub.Data.Migrations
 
             modelBuilder.Entity("BarbersHub.Domain.Entities.BarberShops.BarberShop", b =>
                 {
+                    b.Navigation("Assets");
+
                     b.Navigation("Barbers");
                 });
 
             modelBuilder.Entity("BarbersHub.Domain.Entities.BarberShops.BarberStyle", b =>
                 {
+                    b.Navigation("Assets");
+
                     b.Navigation("Comments");
 
                     b.Navigation("Favorites");
@@ -687,6 +693,8 @@ namespace BarbersHub.Data.Migrations
 
             modelBuilder.Entity("BarbersHub.Domain.Entities.Users.User", b =>
                 {
+                    b.Navigation("Assets");
+
                     b.Navigation("Comments");
 
                     b.Navigation("Favorites");

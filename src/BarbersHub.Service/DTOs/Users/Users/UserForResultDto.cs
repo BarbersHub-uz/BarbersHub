@@ -2,6 +2,7 @@
 using BarbersHub.Service.DTOs.Orders.Orders;
 using BarbersHub.Service.DTOs.Comments.Comments;
 using BarbersHub.Service.DTOs.Favorites.Favorites;
+using BarbersHub.Service.DTOs.Assets;
 
 namespace BarbersHub.Service.DTOs.Users.Users;
 
@@ -20,4 +21,5 @@ public class UserForResultDto
     public ICollection<FavoriteForResultDto> Favorites { get; set; }
     public ICollection<CommentForResultDto> Comments { get; set; }
     public ICollection<OrderForResultDto> Orders { get; set; }
+    public ICollection<UserAssetForResultDto> UserAssets { get; set; }
 }

@@ -1,4 +1,6 @@
 ﻿
+using BarbersHub.Service.DTOs.Assets;
+using BarbersHub.Service.DTOs.BarberShops.Barbers;
 using BarbersHub.Service.DTOs.BarberShops.Styles;
 using BarbersHub.Service.DTOs.Comments.Comments;
 using BarbersHub.Service.DTOs.Favorites.Favorites;
@@ -16,4 +18,6 @@ public class BarberStyleForResultDto
     public decimal Rating { get; set; }
     public ICollection<CommentForResultDto> Comments { get; set; }
     public ICollection<FavoriteForResultDto> Favorites { get; set; }
+    public ICollection<BarberStyleAssetForResultDto> BarberStyleAssets { get; set; }
+
 }
