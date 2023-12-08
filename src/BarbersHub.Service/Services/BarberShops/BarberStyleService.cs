@@ -31,11 +31,51 @@ public class BarberStyleService : IBarberStyleService
         if (barberStyle is not null)
             throw new BarberException(404, "BarberStyle is already exist");
 
-        var mapped = _mapper.Map<BarberStyle>(dto);
+        var existBarber = await _repository.SelectAll()
+            .Where(eb => eb.BarberId == dto.BarberId)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
 
+        if (existBarber is null)
+            throw new BarberException(409, "Barber is not found");
+
+        var mapped = _mapper.Map<BarberStyle>(dto);
+            
         var result = await _repository.InsertAsync(mapped);
 
         return _mapper.Map<BarberStyleForResultDto>(result);
+    }
+    public async Task<IEnumerable<BarberStyleForResultDto>> RetrieveAllAsync(PaginationParams @params)
+    {
+        var barberStyles = await _repository.SelectAll()
+            .Where(bs => bs.IsDeleted == false)
+            .Include(bs => bs.Barber)
+            .Include(bs => bs.Style)
+            .Include(bs => bs.Assets)
+            .Include(bs => bs.Comments)
+            .Include(bs => bs.Favorites)
+            .AsNoTracking()
+            .ToPagedList(@params)
+            .ToListAsync();
+        
+        return _mapper.Map<IEnumerable<BarberStyleForResultDto>>(barberStyles);
+    }
+    public async Task<BarberStyleForResultDto> RetrieveByIdAsync(long id)
+    {
+        var barberStyle = await _repository.SelectAll()
+            .Where(bs => bs.IsDeleted == false && bs.Id == id)
+            .Include(bs => bs.Barber)
+            .Include(bs => bs.Style)
+            .Include(bs => bs.Assets)
+            .Include(bs => bs.Comments)
+            .Include(bs => bs.Favorites)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+
+        if (barberStyle is null)
+            throw new BarberException(409, "BarberStyle is not found");
+
+        return _mapper.Map<BarberStyleForResultDto>(barberStyle);
     }
 
     public async Task<BarberStyleForResultDto> ModifyAsync(long id, BarberStyleForUpdateDto dto)
@@ -48,7 +88,8 @@ public class BarberStyleService : IBarberStyleService
         if (barberStyle is null)
             throw new BarberException(404, "BarberStyle is not found");
 
-        var mapped = _mapper.Map<BarberStyle>(dto);
+        barberStyle.UpdatedAt = DateTime.UtcNow;
+        var mapped = _mapper.Map(dto, barberStyle);
 
         var result = await _repository.UpdateAsync(mapped);
 
@@ -66,32 +107,5 @@ public class BarberStyleService : IBarberStyleService
             throw new BarberException(404, "BarberStyle is not found");
 
         return await _repository.DeleteAsync(id);
-    }
-
-    public async Task<IEnumerable<BarberStyleForResultDto>> RetrieveAllAsync(PaginationParams @params)
-    {
-        var barberStyles = await _repository.SelectAll()
-            .Where(bs => bs.IsDeleted == false)
-            .AsNoTracking()
-            .ToPagedList(@params)
-            .ToListAsync();
-
-        var mappedBarberStyles = _mapper.Map<IEnumerable<BarberStyle>>(barberStyles);
-        
-        return _mapper.Map<IEnumerable<BarberStyleForResultDto>>(mappedBarberStyles);
-    }
-
-    public async Task<BarberStyleForResultDto> RetrieveByIdAsync(long id)
-    {
-        var barberStyle = await _repository.SelectAll()
-            .Where(bs => bs.IsDeleted == false && bs.Id == id)
-            .AsNoTracking()
-            .FirstOrDefaultAsync();
-
-        if (barberStyle is null)
-            throw new BarberException(409, "BarberStyle is not found");
-
-        var result = _mapper.Map<BarberStyle>(barberStyle);
-        return _mapper.Map<BarberStyleForResultDto>(result);
     }
 }

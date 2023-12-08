@@ -1,28 +1,28 @@
 ﻿using BarbersHub.Api.Models;
 using BarbersHub.Service.Configurations;
-using BarbersHub.Service.DTOs.BarberShops.BarberStyles;
+using BarbersHub.Service.DTOs.BarberShops.Styles;
 using BarbersHub.Service.Interfaces.BarberShops;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BarbersHub.Api.Controllers.BarberShopControllers;
 
-public class BarberStylesController : BaseController
+public class StylesController : BaseController
 {
-    private readonly IBarberStyleService _barberStyleService;
+    private readonly IStyleService styleService;
 
-    public BarberStylesController(IBarberStyleService barberStyleService)
+    public StylesController(IStyleService styleService)
     {
-        _barberStyleService = barberStyleService;
+        this.styleService = styleService;
     }
 
     [HttpPost]
-    public async Task<IActionResult> PostAsync([FromBody] BarberStyleForCreationDto dto)
-        => Ok(new Response 
-        { 
-            StatusCode = 200,
-            Message = "Success",
-            Data = await _barberStyleService.AddAsync(dto)
-        });
+    public async Task<IActionResult> PostAsync([FromBody] StyleForCreationDto dto)
+    => Ok(new Response
+    {
+        StatusCode = 200,
+        Message = "Success",
+        Data = await styleService.AddAsync(dto)
+    });
 
     [HttpGet]
     public async Task<IActionResult> GetAllAsync([FromQuery] PaginationParams @params)
@@ -30,7 +30,7 @@ public class BarberStylesController : BaseController
         {
             StatusCode = 200,
             Message = "Success",
-            Data = await _barberStyleService.RetrieveAllAsync(@params)
+            Data = await styleService.RetrieveAllAsync(@params)
         });
 
     [HttpGet("{id}")]
@@ -39,16 +39,16 @@ public class BarberStylesController : BaseController
         {
             StatusCode = 200,
             Message = "Success",
-            Data = await _barberStyleService.RetrieveByIdAsync(id)
+            Data = await styleService.RetrieveByIdAsync(id)
         });
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutAsync([FromRoute(Name = "id")] long id, [FromBody]BarberStyleForUpdateDto dto)
+    public async Task<IActionResult> PutAsync([FromRoute(Name = "id")] long id, [FromBody] StyleForUpdateDto dto)
         => Ok(new Response
         {
             StatusCode = 200,
             Message = "Success",
-            Data = await _barberStyleService.ModifyAsync(id, dto)
+            Data = await styleService.ModifyAsync(id, dto)
         });
 
     [HttpDelete("{id}")]
@@ -57,6 +57,7 @@ public class BarberStylesController : BaseController
         {
             StatusCode = 200,
             Message = "success",
-            Data = await _barberStyleService.RemoveAsync(id)
+            Data = await styleService.RemoveAsync(id)
         });
+
 }

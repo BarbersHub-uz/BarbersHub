@@ -26,5 +26,8 @@ public static class ServiceExtension
         services.AddScoped<IUserAssetService, UserAssetService>();
 
         services.AddScoped<IBarberShopService, BarberShopService>();
+        services.AddScoped<IBarberStyleService, BarberStyleService>();
+
+        services.AddScoped<IStyleService, StyleService>();
     }
 }
