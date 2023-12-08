@@ -41,5 +41,7 @@ public class MappingProfile : Profile
         CreateMap<Style, StyleForResultDto>().ReverseMap();
 
 
+        // BarberShop Asset
+        CreateMap<BarberShopAsset, BarberShopAssetForResultDto>().ReverseMap();
     }
 }
