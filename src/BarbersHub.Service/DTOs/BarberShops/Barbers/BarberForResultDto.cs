@@ -3,6 +3,7 @@ using BarbersHub.Service.DTOs.Orders.Orders;
 using BarbersHub.Service.DTOs.BarberShops.BarberShops;
 using BarbersHub.Service.DTOs.BarberShops.BarberStyles;
 using BarbersHub.Domain.Enums;
+using System.Text.Json.Serialization;
 
 namespace BarbersHub.Service.DTOs.BarberShops.Barbers;
 
@@ -22,6 +23,7 @@ public class BarberForResultDto
     public decimal Rating { get; set; }
     public DateTime DateOfBirth { get; set; }
     public ICollection<OrderForResultDto> Orders { get; set; }
+    [JsonIgnore]
     public ICollection<BarberStyleForResultDto> BarberStyles { get; set; }
     public ICollection<BarberAssetForResultDto> Assets { get; set; }
     public bool IsDeleted { get; set; }
