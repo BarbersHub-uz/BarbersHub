@@ -7,7 +7,7 @@ namespace BarbersHub.Service.Services.Assets;
 
 public class BarberStyleAssetService : IBarberStyleAssetService
 {
-    public Task<BarberStyleAssetForResultDto> CreateAsync(long barberStyleId, IFormFile formFile)
+    public Task<BarberStyleAssetForResultDto> AddAsync(long barberStyleId, IFormFile formFile)
     {
         throw new NotImplementedException();
     }

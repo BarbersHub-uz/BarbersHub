@@ -2,7 +2,6 @@
 using BarbersHub.Service.DTOs.Orders.Orders;
 using BarbersHub.Service.DTOs.BarberShops.BarberShops;
 using BarbersHub.Service.DTOs.BarberShops.BarberStyles;
-using BarbersHub.Domain.Enums;
 
 namespace BarbersHub.Service.DTOs.BarberShops.Barbers;
 

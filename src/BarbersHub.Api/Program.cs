@@ -1,11 +1,9 @@
 using Serilog;
 using BarbersHub.Data.DbContexts;
-using BarbersHub.Service.Helpers;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Diagnostics;
-using BarbersHub.Api.MiddleWares;
-using BarbersHub.Service.Mappers;
 using BarbersHub.Api.Extensions;
+using BarbersHub.Service.Helpers;
+using BarbersHub.Api.MiddleWares;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 

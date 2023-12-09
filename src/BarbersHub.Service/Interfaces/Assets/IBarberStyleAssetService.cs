@@ -8,6 +8,6 @@ public interface IBarberStyleAssetService
 {
     Task<bool> RemoveAsync(long barberStyleId, long id);
     Task<BarberStyleAssetForResultDto> RetrieveByIdAsync(long barberStyleId, long id);
-    Task<BarberStyleAssetForResultDto> CreateAsync(long barberStyleId, IFormFile formFile);
+    Task<BarberStyleAssetForResultDto> AddAsync(long barberStyleId, IFormFile formFile);
     Task<IEnumerable<BarberStyleAssetForResultDto>> RetrieveAllAsync(long barberStyleId, PaginationParams @params);
 }

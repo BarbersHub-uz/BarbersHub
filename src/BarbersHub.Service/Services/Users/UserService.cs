@@ -38,14 +38,14 @@ public class UserService : IUserService
 
         var data = this._mapper.Map<User>(dto);
 
-        var HashedPassword = PasswordHelper.Hash(dto.Password);
-        data.Password = HashedPassword.Hash;
-        data.Salt = HashedPassword.Salt;
+        var hashedPassword = PasswordHelper.Hash(dto.Password);
+        data.Password = hashedPassword.Hash;
+        data.Salt = hashedPassword.Salt;
         data.Role = Domain.Enums.Role.User;
 
-        var CreatedData = await this._userRepository.InsertAsync(data);
+        var createdData = await this._userRepository.InsertAsync(data);
 
-        return this._mapper.Map<UserForResultDto>(CreatedData);
+        return this._mapper.Map<UserForResultDto>(createdData);
     }
 
     public async Task<bool> ChangePasswordAsync(long id, ChangePasswordDto dto)
@@ -65,7 +65,7 @@ public class UserService : IUserService
         var HashedPassword = PasswordHelper.Hash(dto.ConfirmPassword);
         data.Salt = HashedPassword.Salt;
         data.Password = HashedPassword.Hash;
-        await _userRepository.UpdateAsync(data);
+        await this._userRepository.UpdateAsync(data);
         return true;
     }
 

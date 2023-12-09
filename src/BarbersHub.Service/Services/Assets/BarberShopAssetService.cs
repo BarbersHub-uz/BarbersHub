@@ -16,25 +16,26 @@ namespace BarbersHub.Service.Services.Assets;
 public class BarberShopAssetService : IBarberShopAssetService
 {
     private readonly IMapper _mapper;
-    private readonly IRepository<BarberShop> _repository;
-    private readonly IRepository<BarberShopAsset> _assetRepository;
+    private readonly IRepository<BarberShop> _barberShopRepository;
+    private readonly IRepository<BarberShopAsset> _barberShopAssetRepository;
 
     public BarberShopAssetService(
         IMapper mapper,
-        IRepository<BarberShop> repository,
-        IRepository<BarberShopAsset> assetRepository
+        IRepository<BarberShop> barberShopRepository,
+        IRepository<BarberShopAsset> barberShopAssetRepository
         )
     {
-        _mapper = mapper;
-        _repository = repository;
-        _assetRepository = assetRepository;
+        this._mapper = mapper;
+        this._barberShopRepository = barberShopRepository;
+        this._barberShopAssetRepository = barberShopAssetRepository;
     }
-    public async Task<BarberShopAssetForResultDto> CreateAsync(long barberShopId, IFormFile formFile)
+    public async Task<BarberShopAssetForResultDto> AddAsync(long barberShopId, IFormFile formFile)
     {
-        var shop = await _repository.SelectAll().
-            Where(s => s.IsDeleted == false && s.Id == barberShopId).
-            AsNoTracking().
-            FirstOrDefaultAsync();
+        var shop = await this._barberShopRepository
+            .SelectAll()
+            .Where(s => s.IsDeleted == false && s.Id == barberShopId)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
 
         if (shop is null)
             throw new BarberException(404, "BarberShop is not found");
@@ -59,22 +60,23 @@ public class BarberShopAssetService : IBarberShopAssetService
             CreatedAt = DateTime.UtcNow,
         };
 
-        var result = await _assetRepository.InsertAsync(mappedAsset);
+        var result = await this._barberShopAssetRepository.InsertAsync(mappedAsset);
 
-        return _mapper.Map<BarberShopAssetForResultDto>(result);
+        return this._mapper.Map<BarberShopAssetForResultDto>(result);
     }
 
     public async Task<bool> RemoveAsync(long barberShopId, long id)
     {
-        var shop = await _repository.SelectAll().
-            Where(s => s.IsDeleted == false && s.Id == barberShopId).
-            AsNoTracking().
-            FirstOrDefaultAsync();
+        var shop = await this._barberShopRepository
+            .SelectAll()
+            .Where(s => s.IsDeleted == false && s.Id == barberShopId)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
 
         if (shop is null)
             throw new BarberException(404, "BarberShop is not found");
 
-        var barberShopAsset = await _assetRepository
+        var barberShopAsset = await this._barberShopAssetRepository
             .SelectAll()
             .Where(ba => ba.Id == id && !ba.IsDeleted)
             .AsNoTracking()
@@ -83,41 +85,43 @@ public class BarberShopAssetService : IBarberShopAssetService
         if (barberShopAsset is null)
             throw new BarberException(404, "BarberShop Asset is not found");
 
-        return await _assetRepository.DeleteAsync(id);
+        return await this._barberShopAssetRepository.DeleteAsync(id);
     }
 
     public async Task<IEnumerable<BarberShopAssetForResultDto>> RetrieveAllAsync(long barberShopId, PaginationParams @params)
     {
-        var shop = await _repository.SelectAll().
-            Where(s => s.IsDeleted == false && s.Id == barberShopId).
-            AsNoTracking().
-            FirstOrDefaultAsync();
+        var shop = await this._barberShopRepository
+            .SelectAll()
+            .Where(s => s.IsDeleted == false && s.Id == barberShopId)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
 
         if (shop is null)
             throw new BarberException(404, "BarberShop is not found");
 
-        var barberShopAsset = await _assetRepository.
-            SelectAll().
-            Where(ba => ba.BarberShopId == barberShopId && !ba.IsDeleted).
-            ToPagedList(@params).
-            AsNoTracking().
-            ToListAsync();
+        var barberShopAsset = await this._barberShopAssetRepository
+            .SelectAll()
+            .Where(ba => ba.BarberShopId == barberShopId && !ba.IsDeleted)
+            .ToPagedList(@params)
+            .AsNoTracking()
+            .ToListAsync();
 
-        return _mapper.Map<IEnumerable<BarberShopAssetForResultDto>>(barberShopAsset);
+        return this._mapper.Map<IEnumerable<BarberShopAssetForResultDto>>(barberShopAsset);
 
     }
 
     public async Task<BarberShopAssetForResultDto> RetrieveByIdAsync(long barberShopId, long id)
     {
-        var shop = await _repository.SelectAll().
-            Where(s => s.IsDeleted == false && s.Id == barberShopId).
-            AsNoTracking().
-            FirstOrDefaultAsync();
+        var shop = await this._barberShopRepository
+            .SelectAll()
+            .Where(s => s.IsDeleted == false && s.Id == barberShopId)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
 
         if (shop is null)
             throw new BarberException(404, "BarberShop is not found");
 
-        var barberShopAsset = await _assetRepository
+        var barberShopAsset = await this._barberShopAssetRepository
             .SelectAll()
             .Where(ba => ba.Id == id && !ba.IsDeleted)
             .AsNoTracking()
@@ -126,6 +130,6 @@ public class BarberShopAssetService : IBarberShopAssetService
         if (barberShopAsset is null)
             throw new BarberException(404, "BarberShop Asset is not found");
 
-        return _mapper.Map<BarberShopAssetForResultDto>(barberShopAsset);
+        return this._mapper.Map<BarberShopAssetForResultDto>(barberShopAsset);
     }
 }

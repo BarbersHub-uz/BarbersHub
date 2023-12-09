@@ -1,8 +1,7 @@
 ﻿using BarbersHub.Api.Models;
-using BarbersHub.Domain.Entities.BarberShops;
+using Microsoft.AspNetCore.Mvc;
 using BarbersHub.Service.Configurations;
 using BarbersHub.Service.Interfaces.Assets;
-using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
 namespace BarbersHub.Api.Controllers.Assets;
@@ -21,7 +20,7 @@ public class BarberShopAssetsController : BaseController
         {
             StatusCode = 200,
             Message = "Success",
-            Data = await this._assetService.CreateAsync(barberShopId, formFile)
+            Data = await this._assetService.AddAsync(barberShopId, formFile)
         });
 
     [HttpGet("{barberShop-id}")]

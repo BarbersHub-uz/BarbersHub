@@ -19,7 +19,7 @@ public class Barber : Auditable
     public BarberShop BarberShop { get; set; }
     public string Instagram { get; set; }
     public string Telegram { get; set; }
-    public decimal Rating { get; set; }
+    public decimal Rating { get; set; } = 0;
     public string Salt { get; set; }
     public DateTime DateOfBirth { get; set; }
     public ICollection<Order> Orders { get; set; }

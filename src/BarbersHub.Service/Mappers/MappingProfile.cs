@@ -17,9 +17,6 @@ public class MappingProfile : Profile
         CreateMap<User, UserForUpdateDto>().ReverseMap();
         CreateMap<User, UserForCreationDto>().ReverseMap();
 
-        CreateMap<UserAsset, UserAssetForResultDto>().ReverseMap();
-
-
         CreateMap<Barber, BarberForResultDto>().ReverseMap();
         CreateMap<Barber, BarberForUpdateDto>().ReverseMap();
         CreateMap<Barber, BarberForCreationDto>().ReverseMap();
@@ -28,7 +25,10 @@ public class MappingProfile : Profile
         CreateMap<BarberShop, BarberShopForResultDto>().ReverseMap();
         CreateMap<BarberShop, BarberShopForCreationDto>().ReverseMap();
 
-        // BarberShop Asset
+        // Assets
+        CreateMap<UserAsset, UserAssetForResultDto>().ReverseMap();
+        CreateMap<BarberAsset, BarberAssetForResultDto>().ReverseMap();
         CreateMap<BarberShopAsset, BarberShopAssetForResultDto>().ReverseMap();
+
     }
 }
