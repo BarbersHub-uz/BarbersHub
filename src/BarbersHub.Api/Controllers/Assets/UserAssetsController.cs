@@ -21,7 +21,7 @@ public class UserAssetsController : BaseController
         {
             StatusCode = 200,
             Message = "Success",
-            Data = await this._userAssetService.CreateAsync(userId, formFile)
+            Data = await this._userAssetService.AddAsync(userId, formFile)
         });
 
     [HttpGet("{user-id}")]

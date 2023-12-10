@@ -9,7 +9,4 @@ public class BarberStyleForCreationDto
 {
     public long StyleId { get; set; }
     public long BarberId { get; set; }
-    public decimal Cost { get; set; }
-    public decimal Duration { get; set; }
-    public decimal Rating { get; set; }
 }

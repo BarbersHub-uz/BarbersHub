@@ -1,11 +1,12 @@
 using Serilog;
-using BarbersHub.Data.DbContexts;
-using BarbersHub.Service.Helpers;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Diagnostics;
-using BarbersHub.Api.MiddleWares;
-using BarbersHub.Service.Mappers;
+using Newtonsoft.Json; 
+using BarbersHub.Api.Models;
 using BarbersHub.Api.Extensions;
+using BarbersHub.Service.Helpers;
+using BarbersHub.Api.MiddleWares;
+using BarbersHub.Data.DbContexts;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,19 @@ var logger = new LoggerConfiguration()
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
 
+/////// Configuration Api Url
+builder.Services.AddControllers(options =>
+{
+    options.Conventions.Add(new RouteTokenTransformerConvention(
+                                        new ConfigurationApiUrlName()));
+});
+
+//////// Fix the Cycle
+builder.Services.AddControllers()
+     .AddNewtonsoftJson(options =>
+     {
+         options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+     });
 
 // ==========> Db connection
 builder.Services.AddDbContext<AppDbContext>(options =>

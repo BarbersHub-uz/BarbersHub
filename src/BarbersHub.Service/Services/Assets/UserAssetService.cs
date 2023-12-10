@@ -29,11 +29,11 @@ public class UserAssetService : IUserAssetService
         this._userAssetRepository = userAssetRepository;
     }
 
-    public async Task<UserAssetForResultDto> CreateAsync(long userId, IFormFile formFile)
+    public async Task<UserAssetForResultDto> AddAsync(long userId, IFormFile formFile)
     {
         var user = await this._userRepository
             .SelectAll()
-            .Where(u => u.Id == userId)
+            .Where(u => u.Id == userId && !u.IsDeleted)
             .AsNoTracking()
             .FirstOrDefaultAsync();
         if(user is null)
@@ -123,11 +123,6 @@ public class UserAssetService : IUserAssetService
         if (userAsset is null)
             throw new BarberException(404, "UserAsset is not found");
 
-        var mappedAsset = this._mapper.Map<UserAssetForResultDto>(userAsset);
-
-        return mappedAsset;
-
-
-
+        return this._mapper.Map<UserAssetForResultDto>(userAsset);
     }
 }

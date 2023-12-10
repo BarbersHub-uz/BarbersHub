@@ -1,5 +1,6 @@
 ﻿using BarbersHub.Domain.Commons;
 using BarbersHub.Domain.Entities.Assets;
+using System.Text.Json.Serialization;
 
 namespace BarbersHub.Domain.Entities.BarberShops;
 

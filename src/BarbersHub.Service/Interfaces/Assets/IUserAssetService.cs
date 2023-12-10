@@ -8,6 +8,6 @@ public interface IUserAssetService
 {
     Task<bool> RemoveAsync(long userId, long id);
     Task<UserAssetForResultDto> RetrieveByIdAsync(long userId, long id);
-    Task<UserAssetForResultDto> CreateAsync(long userId, IFormFile formFile);
+    Task<UserAssetForResultDto> AddAsync(long userId, IFormFile formFile);
     Task<IEnumerable<UserAssetForResultDto>> RetrieveAllAsync(long userId, PaginationParams @params);
 }

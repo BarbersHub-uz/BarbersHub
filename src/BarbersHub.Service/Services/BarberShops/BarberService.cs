@@ -36,14 +36,14 @@ public class BarberService : IBarberService
 
         var data = this._mapper.Map<Barber>(dto);
 
-        var HashedPassword = PasswordHelper.Hash(dto.Password);
-        data.Password = HashedPassword.Hash;
-        data.Salt = HashedPassword.Salt;
+        var hashedPassword = PasswordHelper.Hash(dto.Password);
+        data.Password = hashedPassword.Hash;
+        data.Salt = hashedPassword.Salt;
         data.Role = Domain.Enums.Role.Barber;
 
-        var CreatedData = await this._barberRepository.InsertAsync(data);
+        var createdData = await this._barberRepository.InsertAsync(data);
 
-        return this._mapper.Map<BarberForResultDto>(CreatedData);
+        return this._mapper.Map<BarberForResultDto>(createdData);
     }
 
     public async Task<BarberForResultDto> ModifyAsync(long id, BarberForUpdateDto dto)
@@ -55,10 +55,10 @@ public class BarberService : IBarberService
         if(barber is null)
            throw new BarberException(404,"Barber is not found");
 
-        barber.UpdatedAt = DateTime.UtcNow;
-        var mapperBarber = this._mapper.Map(dto, barber);
-        await this._barberRepository.UpdateAsync(mapperBarber);
-        return this._mapper.Map<BarberForResultDto>(mapperBarber);
+        var mappedBarber = this._mapper.Map(dto, barber);
+        mappedBarber.UpdatedAt = DateTime.UtcNow;
+        await this._barberRepository.UpdateAsync(mappedBarber);
+        return this._mapper.Map<BarberForResultDto>(mappedBarber);
     }
     public async Task<bool> ChangePasswordAsync(long id, ChangePasswordDto dto)
     {
@@ -99,8 +99,9 @@ public class BarberService : IBarberService
         var barbers = await this._barberRepository
             .SelectAll()
             .Where(b => b.IsDeleted == false)
-            .Include(b => b.Assets)
-            //.Include(b => b.BarberStyles)
+            .Include(b => b.Assets.Where(a => !a.IsDeleted))
+            .Include(b => b.BarberShop)
+            .Include(b => b.BarberStyles.Where(b => b.IsDeleted == false))
             //.Include(b => b.Orders)
             .AsNoTracking()
             .ToPagedList(@params)
@@ -120,9 +121,9 @@ public class BarberService : IBarberService
         var barber = await this._barberRepository
             .SelectAll()
             .Where(b => b.Id == id && !b.IsDeleted)
-            .Include(b => b.Assets)
+            .Include(b => b.Assets.Where(a => !a.IsDeleted))
+            .Include(b => b.Orders.Where(o => o.IsDeleted == false))
             //.Include(b => b.BarberStyles)
-            //.Include(b => b.Orders)
             .AsNoTracking()
             .FirstOrDefaultAsync();
         if(barber is null)

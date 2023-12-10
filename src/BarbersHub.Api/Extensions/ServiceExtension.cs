@@ -22,17 +22,17 @@ public static class ServiceExtension
 
         services.AddScoped<EnvironmentHelper, EnvironmentHelper>();
 
+        //Services
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IStyleService, StyleService>();
         services.AddScoped<IBarberService, BarberService>();
-        services.AddScoped<IUserAssetService, UserAssetService>();
-
         services.AddScoped<IBarberShopService, BarberShopService>();
-
         services.AddScoped<IBarberStyleService, BarberStyleService>();
 
-        services.AddScoped<IStyleService, StyleService>();
-
-
+        //Asset Services
         services.AddScoped<IBarberShopAssetService, BarberShopAssetService>();
+        services.AddScoped<IBarberAssetService, BarberAssetService>();
+        services.AddScoped<IStyleAssetService, StyleAssetService>();
+        services.AddScoped<IUserAssetService, UserAssetService>();
     }
 }
