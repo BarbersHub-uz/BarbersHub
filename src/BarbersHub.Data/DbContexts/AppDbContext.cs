@@ -26,6 +26,6 @@ namespace BarbersHub.Data.DbContexts
         public DbSet<BarberStyle> BarberStyles { get; set; }
         public DbSet<BarberAsset> BarberAssets { get; set; }
         public DbSet<BarberShopAsset> BarberShopAssets { get; set; }
-        public DbSet<BarberStyleAsset> BarberStyleAssets { get; set; }
+        public DbSet<StyleAsset> BarberStyleAssets { get; set; }
     }
 }
