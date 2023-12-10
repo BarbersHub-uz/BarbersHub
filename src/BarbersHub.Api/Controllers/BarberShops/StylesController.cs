@@ -1,10 +1,10 @@
 ﻿using BarbersHub.Api.Models;
-using BarbersHub.Service.Configurations;
-using BarbersHub.Service.DTOs.BarberShops.Styles;
-using BarbersHub.Service.Interfaces.BarberShops;
 using Microsoft.AspNetCore.Mvc;
+using BarbersHub.Service.Configurations;
+using BarbersHub.Service.Interfaces.BarberShops;
+using BarbersHub.Service.DTOs.BarberShops.Styles;
 
-namespace BarbersHub.Api.Controllers.BarberShopControllers;
+namespace BarbersHub.Api.Controllers.BarberShops;
 
 public class StylesController : BaseController
 {

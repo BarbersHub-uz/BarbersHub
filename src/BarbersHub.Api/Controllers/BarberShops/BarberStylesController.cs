@@ -1,29 +1,27 @@
 ﻿using BarbersHub.Api.Models;
-using BarbersHub.Service.Configurations;
-using BarbersHub.Service.DTOs.BarberShops.BarberShops;
-using BarbersHub.Service.DTOs.Users.Users;
-using BarbersHub.Service.Interfaces.BarberShops;
-using BarbersHub.Service.Interfaces.Users;
 using Microsoft.AspNetCore.Mvc;
+using BarbersHub.Service.Configurations;
+using BarbersHub.Service.Interfaces.BarberShops;
+using BarbersHub.Service.DTOs.BarberShops.BarberStyles;
 
-namespace BarbersHub.Api.Controllers.BarberShopControllers;
+namespace BarbersHub.Api.Controllers.BarberShops;
 
-public class BarberShopsController : BaseController
+public class BarberStylesController : BaseController
 {
-    private readonly IBarberShopService _shopService;
+    private readonly IBarberStyleService _barberStyleService;
 
-    public BarberShopsController(IBarberShopService shopService)
+    public BarberStylesController(IBarberStyleService barberStyleService)
     {
-        _shopService = shopService;
+        this._barberStyleService = barberStyleService;
     }
 
     [HttpPost]
-    public async Task<IActionResult> PostAsync([FromBody] BarberShopForCreationDto dto)
+    public async Task<IActionResult> PostAsync([FromBody] BarberStyleForCreationDto dto)
         => Ok(new Response
         {
             StatusCode = 200,
             Message = "Success",
-            Data = await this._shopService.AddAsync(dto)
+            Data = await _barberStyleService.AddAsync(dto)
         });
 
     [HttpGet]
@@ -32,7 +30,7 @@ public class BarberShopsController : BaseController
         {
             StatusCode = 200,
             Message = "Success",
-            Data = await this._shopService.RetrieveAllAsync(@params)
+            Data = await _barberStyleService.RetrieveAllAsync(@params)
         });
 
     [HttpGet("{id}")]
@@ -41,23 +39,24 @@ public class BarberShopsController : BaseController
         {
             StatusCode = 200,
             Message = "Success",
-            Data = await this._shopService.RetrieveByIdAsync(id)
+            Data = await _barberStyleService.RetrieveByIdAsync(id)
         });
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutAsync([FromRoute(Name = "id")] long id, [FromBody] BarberShopForUpdateDto dto)
+    public async Task<IActionResult> PutAsync([FromRoute(Name = "id")] long id, [FromBody] BarberStyleForUpdateDto dto)
         => Ok(new Response
         {
             StatusCode = 200,
             Message = "Success",
-            Data = await this._shopService.ModifyAsync(id, dto)
+            Data = await _barberStyleService.ModifyAsync(id, dto)
         });
+
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteAsync([FromRoute(Name = "id")] long id)
         => Ok(new Response
         {
             StatusCode = 200,
-            Message = "Success",
-            Data = await this._shopService.RemoveAsync(id)
+            Message = "success",
+            Data = await _barberStyleService.RemoveAsync(id)
         });
 }
