@@ -1,7 +1,7 @@
 ﻿using BarbersHub.Api.Models;
+using Microsoft.AspNetCore.Mvc;
 using BarbersHub.Service.Configurations;
 using BarbersHub.Service.Interfaces.Assets;
-using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
 namespace BarbersHub.Api.Controllers.Assets;

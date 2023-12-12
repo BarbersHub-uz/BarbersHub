@@ -1,6 +1,6 @@
 ﻿using BarbersHub.Service.Configurations;
-using BarbersHub.Service.DTOs.BarberShops.Barbers;
 using BarbersHub.Service.DTOs.ChangePassword;
+using BarbersHub.Service.DTOs.BarberShops.Barbers;
 
 namespace BarbersHub.Service.Interfaces.BarberShops;
 

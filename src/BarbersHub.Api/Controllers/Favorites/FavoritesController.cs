@@ -1,8 +1,8 @@
 ﻿using BarbersHub.Api.Models;
-using BarbersHub.Service.Configurations;
-using BarbersHub.Service.DTOs.Favorites.Favorites;
-using BarbersHub.Service.Interfaces.Favorites;
 using Microsoft.AspNetCore.Mvc;
+using BarbersHub.Service.Configurations;
+using BarbersHub.Service.Interfaces.Favorites;
+using BarbersHub.Service.DTOs.Favorites.Favorites;
 
 namespace BarbersHub.Api.Controllers.Favorites;
 

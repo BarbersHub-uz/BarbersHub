@@ -2,12 +2,12 @@
 using BarbersHub.Service.Helpers;
 using BarbersHub.Data.IRepositories;
 using Microsoft.EntityFrameworkCore;
-using BarbersHub.Service.Exceptions;
 using BarbersHub.Service.Extensions;
 using BarbersHub.Domain.Entities.Users;
 using BarbersHub.Service.Configurations;
 using BarbersHub.Service.DTOs.Users.Users;
 using BarbersHub.Service.Interfaces.Users;
+using BarbersHub.Service.Commons.Exceptions;
 using BarbersHub.Service.DTOs.ChangePassword;
 
 namespace BarbersHub.Service.Services.Users;

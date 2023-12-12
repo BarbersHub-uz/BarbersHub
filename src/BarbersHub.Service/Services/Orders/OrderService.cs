@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using BarbersHub.Data.IRepositories;
-using BarbersHub.Domain.Entities.Orders;
 using BarbersHub.Service.Configurations;
+using BarbersHub.Domain.Entities.Orders;
 using BarbersHub.Service.Interfaces.Orders;
 using BarbersHub.Service.DTOs.Orders.Orders;
 

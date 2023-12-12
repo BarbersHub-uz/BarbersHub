@@ -1,8 +1,8 @@
-﻿using BarbersHub.Domain.Commons;
-using BarbersHub.Service.Configurations;
-using BarbersHub.Service.Exceptions;
+﻿using Newtonsoft.Json;
+using BarbersHub.Domain.Commons;
 using BarbersHub.Service.Helpers;
-using Newtonsoft.Json;
+using BarbersHub.Service.Configurations;
+using BarbersHub.Service.Commons.Exceptions;
 
 namespace BarbersHub.Service.Extensions;
 

@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using BarbersHub.Data.IRepositories;
 using Microsoft.EntityFrameworkCore;
-using BarbersHub.Service.Exceptions;
 using BarbersHub.Service.Extensions;
 using BarbersHub.Service.Configurations;
 using BarbersHub.Domain.Entities.Favorites;
+using BarbersHub.Service.Commons.Exceptions;
 using BarbersHub.Service.Interfaces.Favorites;
 using BarbersHub.Service.DTOs.Favorites.Favorites;
 

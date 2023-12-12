@@ -1,5 +1,4 @@
 using BarbersHub.Service.Mappers;
-using BarbersHub.Service.Helpers;
 using BarbersHub.Data.Repositories;
 using BarbersHub.Data.IRepositories;
 using BarbersHub.Service.Services.Users;
@@ -10,6 +9,7 @@ using BarbersHub.Service.Services.Favorites;
 using BarbersHub.Service.Interfaces.Favorites;
 using BarbersHub.Service.Services.BarberShops;
 using BarbersHub.Service.Interfaces.BarberShops;
+using BarbersHub.Service.Helpers;
 
 namespace BarbersHub.Api.Extensions;
 

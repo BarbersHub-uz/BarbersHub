@@ -1,4 +1,4 @@
-﻿namespace BarbersHub.Service.Exceptions;
+﻿namespace BarbersHub.Service.Commons.Exceptions;
 
 public class BarberException : Exception
 {
@@ -6,6 +6,6 @@ public class BarberException : Exception
 
     public BarberException(int Code, string Message) : base(Message)
     {
-        this.statusCode = Code;
+        statusCode = Code;
     }
 }
