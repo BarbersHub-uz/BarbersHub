@@ -1,10 +1,10 @@
 using Serilog;
-using Newtonsoft.Json; 
+using Newtonsoft.Json;
 using BarbersHub.Api.Models;
 using BarbersHub.Api.Extensions;
-using BarbersHub.Service.Helpers;
 using BarbersHub.Api.MiddleWares;
 using BarbersHub.Data.DbContexts;
+using BarbersHub.Service.Helpers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 

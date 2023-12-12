@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using BarbersHub.Service.Configurations;
 using BarbersHub.Service.DTOs.Users.Users;
 using BarbersHub.Service.Interfaces.Users;
+using BarbersHub.Service.DTOs.ChangePassword;
 
 namespace BarbersHub.Api.Controllers.Users;
 
@@ -40,6 +41,15 @@ public class UsersController : BaseController
             StatusCode = 200,
             Message = "Success",
             Data = await this._userService.RetrieveByIdAsync(id)
+        });
+
+    [HttpPut("change-password")]
+    public async Task<IActionResult> ChangePasswordAsync([FromRoute(Name = "change-password")] long id, [FromBody] ChangePasswordDto dto)
+        => Ok(new Response
+        {
+            StatusCode = 200,
+            Message = "Success",
+            Data = await this._userService.ChangePasswordAsync(id, dto)
         });
 
     [HttpPut("{id}")]

@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using BarbersHub.Service.Exceptions;
-using BarbersHub.Service.Extensions;
 using BarbersHub.Data.IRepositories;
+using BarbersHub.Service.Extensions;
 using BarbersHub.Service.Configurations;
+using BarbersHub.Service.Commons.Exceptions;
 using BarbersHub.Domain.Entities.BarberShops;
 using BarbersHub.Service.Interfaces.BarberShops;
 using BarbersHub.Service.DTOs.BarberShops.Styles;

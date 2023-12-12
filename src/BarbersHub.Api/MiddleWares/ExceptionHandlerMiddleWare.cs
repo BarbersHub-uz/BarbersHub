@@ -1,12 +1,12 @@
 ﻿using BarbersHub.Api.Models;
-using BarbersHub.Service.Exceptions;
+using BarbersHub.Service.Commons.Exceptions;
 
 namespace BarbersHub.Api.MiddleWares;
 
 public class ExceptionHandlerMiddleWare
 {
-    private readonly RequestDelegate _next;
     private readonly ILogger _logger;
+    private readonly RequestDelegate _next;
 
     public ExceptionHandlerMiddleWare(RequestDelegate next, ILogger<ExceptionHandlerMiddleWare> logger)
     {

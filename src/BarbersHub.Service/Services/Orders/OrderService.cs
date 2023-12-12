@@ -1,4 +1,7 @@
-﻿using BarbersHub.Service.Configurations;
+﻿using AutoMapper;
+using BarbersHub.Data.IRepositories;
+using BarbersHub.Service.Configurations;
+using BarbersHub.Domain.Entities.Orders;
 using BarbersHub.Service.Interfaces.Orders;
 using BarbersHub.Service.DTOs.Orders.Orders;
 
@@ -6,6 +9,17 @@ namespace BarbersHub.Service.Services.Orders;
 
 public class OrderService : IOrderService
 {
+    private readonly IMapper _mapper;
+    private readonly IRepository<Order> _orderRepository;
+
+    public OrderService(
+        IMapper mapper,
+        IRepository<Order> orderRepository)
+    {
+        this._mapper = mapper;
+        this._orderRepository = orderRepository;
+    }
+
     public Task<OrderForResultDto> AddAsync(OrderForCreationDto dto)
     {
         throw new NotImplementedException();

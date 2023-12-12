@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using BarbersHub.Service.Helpers;
-using BarbersHub.Service.Extensions;
 using BarbersHub.Data.IRepositories;
-using BarbersHub.Service.Exceptions;
+using BarbersHub.Service.Extensions;
 using Microsoft.EntityFrameworkCore;
 using BarbersHub.Service.DTOs.Assets;
 using BarbersHub.Domain.Entities.Users;
-using BarbersHub.Domain.Entities.Assets;
 using BarbersHub.Service.Configurations;
+using BarbersHub.Domain.Entities.Assets;
 using BarbersHub.Service.Interfaces.Assets;
+using BarbersHub.Service.Commons.Exceptions;
 
 namespace BarbersHub.Service.Services.Assets;
 
