@@ -1,8 +1,7 @@
-﻿using BarbersHub.Domain.Enums;
+﻿using BarbersHub.Service.DTOs.Assets;
 using BarbersHub.Service.DTOs.Orders.Orders;
 using BarbersHub.Service.DTOs.Comments.Comments;
 using BarbersHub.Service.DTOs.Favorites.Favorites;
-using BarbersHub.Service.DTOs.Assets;
 
 namespace BarbersHub.Service.DTOs.Users.Users;
 

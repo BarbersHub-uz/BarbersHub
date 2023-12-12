@@ -94,6 +94,8 @@ public class UserService : IUserService
         if(user is null)
             throw new BarberException(404, "User is not found");
 
+        //user.DeletedBy = (long)HttpContextHelper.UserId;
+
         return await this._userRepository.DeleteAsync(id);
     }
 
@@ -102,7 +104,7 @@ public class UserService : IUserService
         var users = await this._userRepository
             .SelectAll()
             .Where(u => u.IsDeleted == false)
-            .Include(u => u.Assets)
+            .Include(u => u.Assets.Where(a => a.IsDeleted == false))
             //.Include(u => u.Comments)
             //.Include(u => u.Favorites)
             //.Include(u => u.Orders)
@@ -124,7 +126,7 @@ public class UserService : IUserService
         var user = await this._userRepository
             .SelectAll()
             .Where(u => u.Id == id && !u.IsDeleted)
-            .Include(u => u.Assets)
+            .Include(u => u.Assets.Where(a => a.IsDeleted == false))
             //.Include(u => u.Comments)
             //.Include(u => u.Favorites)
             //.Include(u => u.Orders)
