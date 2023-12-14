@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using BarbersHub.Domain.Entities.Users;
 using BarbersHub.Domain.Entities.Orders;
-using BarbersHub.Domain.Entities.Comments;
 using BarbersHub.Domain.Entities.Assets;
+using BarbersHub.Domain.Entities.Comments;
 using BarbersHub.Domain.Entities.Favorites;
 using BarbersHub.Domain.Entities.BarberShops;
 
@@ -25,7 +25,7 @@ namespace BarbersHub.Data.DbContexts
         public DbSet<BarberShop> BarberShops { get; set; }
         public DbSet<BarberStyle> BarberStyles { get; set; }
         public DbSet<BarberAsset> BarberAssets { get; set; }
-        public DbSet<BarberShopAsset> BarberShopAssets { get; set; }
         public DbSet<StyleAsset> BarberStyleAssets { get; set; }
+        public DbSet<BarberShopAsset> BarberShopAssets { get; set; }
     }
 }

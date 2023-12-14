@@ -60,6 +60,7 @@ public class UsersController : BaseController
             Message = "Success",
             Data = await this._userService.ModifyAsync(id, dto)
         });
+
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteAsync([FromRoute(Name = "id")] long id)
         => Ok(new Response

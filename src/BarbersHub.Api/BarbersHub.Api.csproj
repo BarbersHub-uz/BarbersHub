@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Logs\" />
     <Folder Include="wwwroot\BarberShops\ProfilePhotos\" />
     <Folder Include="wwwroot\Barbers\ProfilePhotos\" />
     <Folder Include="wwwroot\Styles\Photos\" />

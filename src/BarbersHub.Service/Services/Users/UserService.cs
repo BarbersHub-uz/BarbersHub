@@ -78,8 +78,8 @@ public class UserService : IUserService
         if(user is null)
             throw new BarberException(404, "User is not found");
 
-        user.UpdatedAt = DateTime.UtcNow;
         var person = this._mapper.Map(dto, user);
+        person.UpdatedAt = DateTime.UtcNow;
         await this._userRepository.UpdateAsync(person);
         return this._mapper.Map<UserForResultDto>(person);
     }
