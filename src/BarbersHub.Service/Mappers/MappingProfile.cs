@@ -10,6 +10,8 @@ using BarbersHub.Service.DTOs.BarberShops.BarberShops;
 using BarbersHub.Service.DTOs.BarberShops.BarberStyles;
 using BarbersHub.Domain.Entities.Favorites;
 using BarbersHub.Service.DTOs.Favorites.Favorites;
+using BarbersHub.Domain.Entities.Orders;
+using BarbersHub.Service.DTOs.Orders.Orders;
 
 namespace BarbersHub.Service.Mappers;
 
@@ -26,7 +28,12 @@ public class MappingProfile : Profile
         CreateMap<Style, StyleForUpdateDto>().ReverseMap();
         CreateMap<Style, StyleForResultDto>().ReverseMap();
         CreateMap<Style, StyleForCreationDto>().ReverseMap();
-        
+
+        //Order
+        CreateMap<Order, OrderForResultDto>().ReverseMap();
+        CreateMap<Order, OrderForUpdateDto>().ReverseMap();
+        CreateMap<Order, OrderForCreationDto>().ReverseMap();
+
         // Barber
         CreateMap<Barber, BarberForResultDto>().ReverseMap();
         CreateMap<Barber, BarberForUpdateDto>().ReverseMap();
