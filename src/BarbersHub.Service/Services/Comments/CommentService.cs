@@ -1,6 +1,6 @@
 ﻿using BarbersHub.Service.Configurations;
-using BarbersHub.Service.DTOs.Comments.Comments;
 using BarbersHub.Service.Interfaces.Comments;
+using BarbersHub.Service.DTOs.Comments.Comments;
 
 namespace BarbersHub.Service.Services.Comments;
 

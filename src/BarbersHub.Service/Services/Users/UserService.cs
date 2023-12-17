@@ -1,24 +1,25 @@
 ﻿using AutoMapper;
 using BarbersHub.Service.Helpers;
 using BarbersHub.Data.IRepositories;
+using Microsoft.EntityFrameworkCore;
+using BarbersHub.Service.Extensions;
 using BarbersHub.Domain.Entities.Users;
 using BarbersHub.Service.Configurations;
 using BarbersHub.Service.DTOs.Users.Users;
 using BarbersHub.Service.Interfaces.Users;
+using BarbersHub.Service.Commons.Exceptions;
 using BarbersHub.Service.DTOs.ChangePassword;
-using BarbersHub.Service.Exceptions;
-using Microsoft.EntityFrameworkCore;
 
 namespace BarbersHub.Service.Services.Users;
 
 public class UserService : IUserService
 {
     private readonly IMapper _mapper;
-    private readonly IRepository<User> _userRepository;
+    private readonly IUserRepository _userRepository;
 
     public UserService(
-        IRepository<User> userRepository,
-        IMapper mapper)
+        IMapper mapper,
+        IUserRepository userRepository)
     {
         this._mapper = mapper;
         this._userRepository = userRepository;
@@ -29,6 +30,7 @@ public class UserService : IUserService
         var user = await this._userRepository
             .SelectAll()
             .Where(u => u.UserName.ToLower() == dto.UserName.ToLower() && !u.IsDeleted)
+            .AsNoTracking()
             .FirstOrDefaultAsync();
 
         if(user is not null)
@@ -36,14 +38,14 @@ public class UserService : IUserService
 
         var data = this._mapper.Map<User>(dto);
 
-        var HashedPassword = PasswordHelper.Hash(dto.Password);
-        data.Password = HashedPassword.Hash;
-        data.Salt = HashedPassword.Salt;
+        var hashedPassword = PasswordHelper.Hash(dto.Password);
+        data.Password = hashedPassword.Hash;
+        data.Salt = hashedPassword.Salt;
         data.Role = Domain.Enums.Role.User;
-        var CreatedData = await this._userRepository.InsertAsync(data);
 
-        return this._mapper.Map<UserForResultDto>(CreatedData);
+        var createdData = await this._userRepository.InsertAsync(data);
 
+        return this._mapper.Map<UserForResultDto>(createdData);
     }
 
     public async Task<bool> ChangePasswordAsync(long id, ChangePasswordDto dto)
@@ -63,27 +65,80 @@ public class UserService : IUserService
         var HashedPassword = PasswordHelper.Hash(dto.ConfirmPassword);
         data.Salt = HashedPassword.Salt;
         data.Password = HashedPassword.Hash;
-        await _userRepository.UpdateAsync(data);
+        await this._userRepository.UpdateAsync(data);
         return true;
     }
 
-    public Task<UserForResultDto> ModifyAsync(long id, UserForUpdateDto dto)
+    public async Task<UserForResultDto> ModifyAsync(long id, UserForUpdateDto dto)
     {
-        throw new NotImplementedException();
+        var user = await this._userRepository
+            .SelectAll()
+            .Where(u => u.Id == id && !u.IsDeleted)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+        if(user is null)
+            throw new BarberException(404, "User is not found");
+
+        var person = this._mapper.Map(dto, user);
+        person.UpdatedAt = DateTime.UtcNow;
+        await this._userRepository.UpdateAsync(person);
+        return this._mapper.Map<UserForResultDto>(person);
     }
 
-    public Task<bool> RemoveAsync(long id)
+    public async Task<bool> RemoveAsync(long id)
     {
-        throw new NotImplementedException();
+        var user = await this._userRepository
+            .SelectAll()
+            .Where(u => u.Id == id && !u.IsDeleted)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+        if(user is null)
+            throw new BarberException(404, "User is not found");
+
+        //user.DeletedBy = (long)HttpContextHelper.UserId;
+
+        return await this._userRepository.DeleteAsync(id);
     }
 
-    public Task<IEnumerable<UserForResultDto>> RetrieveAllAsync(PaginationParams @params)
+    public async Task<IEnumerable<UserForResultDto>> RetrieveAllAsync(PaginationParams @params)
     {
-        throw new NotImplementedException();
+        var users = await this._userRepository
+            .SelectAll()
+            .Where(u => u.IsDeleted == false)
+            .Include(u => u.Assets.Where(a => a.IsDeleted == false))
+            //.Include(u => u.Comments)
+            //.Include(u => u.Favorites)
+            //.Include(u => u.Orders)
+            .AsNoTracking()
+            .ToPagedList(@params)
+            .ToListAsync();
+
+        var result = this._mapper.Map<IEnumerable<UserForResultDto>>(users);
+        foreach( var user in result)
+        {
+            user.Role = user.Role.ToString();
+            user.Gender = user.Gender.ToString();
+        }
+        return result;
     }
 
-    public Task<UserForResultDto> RetrieveByIdAsync(long id)
+    public async Task<UserForResultDto> RetrieveByIdAsync(long id)
     {
-        throw new NotImplementedException();
+        var user = await this._userRepository
+            .SelectAll()
+            .Where(u => u.Id == id && !u.IsDeleted)
+            .Include(u => u.Assets.Where(a => a.IsDeleted == false))
+            //.Include(u => u.Comments)
+            //.Include(u => u.Favorites)
+            //.Include(u => u.Orders)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+        if(user is null)
+            throw new BarberException(404, "User is not found");
+
+        var result = this._mapper.Map<UserForResultDto>(user);
+        result.Role = result.Role.ToString();
+        result.Gender = result.Gender.ToString();
+        return result;
     }
 }

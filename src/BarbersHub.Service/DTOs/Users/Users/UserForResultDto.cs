@@ -1,4 +1,4 @@
-﻿using BarbersHub.Domain.Enums;
+﻿using BarbersHub.Service.DTOs.Assets;
 using BarbersHub.Service.DTOs.Orders.Orders;
 using BarbersHub.Service.DTOs.Comments.Comments;
 using BarbersHub.Service.DTOs.Favorites.Favorites;
@@ -13,11 +13,12 @@ public class UserForResultDto
     public string Email { get; set; }
     public string UserName { get; set; }
     public string PhoneNumber { get; set; }
-    public string Image { get; set; }
-    public GenderType Gender { get; set; }
-    public Role Role { get; set; }
+    public string Gender { get; set; }
+    public string Role { get; set; }
     public DateTime DateOfBirth { get; set; }
     public ICollection<FavoriteForResultDto> Favorites { get; set; }
     public ICollection<CommentForResultDto> Comments { get; set; }
     public ICollection<OrderForResultDto> Orders { get; set; }
+    public ICollection<UserAssetForResultDto> Assets { get; set; }
+    public bool IsDeleted { get; set; }
 }

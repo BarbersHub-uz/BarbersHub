@@ -8,21 +8,28 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.11">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11" />
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BarbersHub.Data\BarbersHub.Data.csproj" />
+    <ProjectReference Include="..\BarbersHub.Service\BarbersHub.Service.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <Folder Include="Logs\" />
+    <Folder Include="wwwroot\BarberShops\ProfilePhotos\" />
+    <Folder Include="wwwroot\Barbers\ProfilePhotos\" />
+    <Folder Include="wwwroot\Styles\Photos\" />
+    <Folder Include="wwwroot\Users\ProfilePhotos\" />
   </ItemGroup>
 
 </Project>

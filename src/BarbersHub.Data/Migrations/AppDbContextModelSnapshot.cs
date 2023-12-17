@@ -33,7 +33,7 @@ namespace BarbersHub.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<long>("DeletedBy")
+                    b.Property<long?>("DeletedBy")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Discriminator")
@@ -61,7 +61,7 @@ namespace BarbersHub.Data.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<long>("UpdatedBy")
+                    b.Property<long?>("UpdatedBy")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
@@ -90,7 +90,7 @@ namespace BarbersHub.Data.Migrations
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<long>("DeletedBy")
+                    b.Property<long?>("DeletedBy")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Email")
@@ -120,13 +120,19 @@ namespace BarbersHub.Data.Migrations
                     b.Property<decimal>("Rating")
                         .HasColumnType("numeric");
 
+                    b.Property<int>("Role")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Salt")
+                        .HasColumnType("text");
+
                     b.Property<string>("Telegram")
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<long>("UpdatedBy")
+                    b.Property<long?>("UpdatedBy")
                         .HasColumnType("bigint");
 
                     b.Property<string>("UserName")
@@ -150,7 +156,7 @@ namespace BarbersHub.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<long>("DeletedBy")
+                    b.Property<long?>("DeletedBy")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Description")
@@ -171,7 +177,7 @@ namespace BarbersHub.Data.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<long>("UpdatedBy")
+                    b.Property<long?>("UpdatedBy")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
@@ -190,23 +196,14 @@ namespace BarbersHub.Data.Migrations
                     b.Property<long>("BarberId")
                         .HasColumnType("bigint");
 
-                    b.Property<decimal>("Cost")
-                        .HasColumnType("numeric");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<long>("DeletedBy")
+                    b.Property<long?>("DeletedBy")
                         .HasColumnType("bigint");
-
-                    b.Property<decimal>("Duration")
-                        .HasColumnType("numeric");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
-
-                    b.Property<decimal>("Rating")
-                        .HasColumnType("numeric");
 
                     b.Property<long>("StyleId")
                         .HasColumnType("bigint");
@@ -214,7 +211,7 @@ namespace BarbersHub.Data.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<long>("UpdatedBy")
+                    b.Property<long?>("UpdatedBy")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
@@ -234,14 +231,23 @@ namespace BarbersHub.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
+                    b.Property<decimal>("Cost")
+                        .HasColumnType("numeric");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<long>("DeletedBy")
+                    b.Property<long?>("DeletedBy")
                         .HasColumnType("bigint");
+
+                    b.Property<decimal>("Duration")
+                        .HasColumnType("numeric");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
+
+                    b.Property<decimal>("Rating")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("ServiceType")
                         .HasColumnType("text");
@@ -249,7 +255,7 @@ namespace BarbersHub.Data.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<long>("UpdatedBy")
+                    b.Property<long?>("UpdatedBy")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
@@ -265,22 +271,22 @@ namespace BarbersHub.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("BarberStyleId")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<long>("DeletedBy")
+                    b.Property<long?>("DeletedBy")
                         .HasColumnType("bigint");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
+                    b.Property<long>("StyleId")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<long>("UpdatedBy")
+                    b.Property<long?>("UpdatedBy")
                         .HasColumnType("bigint");
 
                     b.Property<long>("UserId")
@@ -288,7 +294,7 @@ namespace BarbersHub.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BarberStyleId");
+                    b.HasIndex("StyleId");
 
                     b.HasIndex("UserId");
 
@@ -306,7 +312,7 @@ namespace BarbersHub.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<long>("DeletedBy")
+                    b.Property<long?>("DeletedBy")
                         .HasColumnType("bigint");
 
                     b.Property<bool>("IsDeleted")
@@ -321,7 +327,7 @@ namespace BarbersHub.Data.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<long>("UpdatedBy")
+                    b.Property<long?>("UpdatedBy")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
@@ -339,22 +345,22 @@ namespace BarbersHub.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("BarberStyleId")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<long>("DeletedBy")
+                    b.Property<long?>("DeletedBy")
                         .HasColumnType("bigint");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
+                    b.Property<long>("StyleId")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<long>("UpdatedBy")
+                    b.Property<long?>("UpdatedBy")
                         .HasColumnType("bigint");
 
                     b.Property<long>("UserId")
@@ -362,7 +368,7 @@ namespace BarbersHub.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BarberStyleId");
+                    b.HasIndex("StyleId");
 
                     b.HasIndex("UserId");
 
@@ -383,7 +389,7 @@ namespace BarbersHub.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<long>("DeletedBy")
+                    b.Property<long?>("DeletedBy")
                         .HasColumnType("bigint");
 
                     b.Property<bool>("IsDeleted")
@@ -395,7 +401,7 @@ namespace BarbersHub.Data.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<long>("UpdatedBy")
+                    b.Property<long?>("UpdatedBy")
                         .HasColumnType("bigint");
 
                     b.Property<long>("UserId")
@@ -424,7 +430,7 @@ namespace BarbersHub.Data.Migrations
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<long>("DeletedBy")
+                    b.Property<long?>("DeletedBy")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Email")
@@ -457,7 +463,7 @@ namespace BarbersHub.Data.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<long>("UpdatedBy")
+                    b.Property<long?>("UpdatedBy")
                         .HasColumnType("bigint");
 
                     b.Property<string>("UserName")
@@ -492,16 +498,16 @@ namespace BarbersHub.Data.Migrations
                     b.HasDiscriminator().HasValue("BarberShopAsset");
                 });
 
-            modelBuilder.Entity("BarbersHub.Domain.Entities.Assets.BarberStyleAsset", b =>
+            modelBuilder.Entity("BarbersHub.Domain.Entities.Assets.StyleAsset", b =>
                 {
                     b.HasBaseType("BarbersHub.Domain.Entities.Assets.Asset");
 
-                    b.Property<long>("BarberStyleId")
+                    b.Property<long>("StyleId")
                         .HasColumnType("bigint");
 
-                    b.HasIndex("BarberStyleId");
+                    b.HasIndex("StyleId");
 
-                    b.HasDiscriminator().HasValue("BarberStyleAsset");
+                    b.HasDiscriminator().HasValue("StyleAsset");
                 });
 
             modelBuilder.Entity("BarbersHub.Domain.Entities.Assets.UserAsset", b =>
@@ -536,7 +542,7 @@ namespace BarbersHub.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("BarbersHub.Domain.Entities.BarberShops.Style", "Style")
-                        .WithMany()
+                        .WithMany("BarberStyles")
                         .HasForeignKey("StyleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -548,9 +554,9 @@ namespace BarbersHub.Data.Migrations
 
             modelBuilder.Entity("BarbersHub.Domain.Entities.Comments.Comment", b =>
                 {
-                    b.HasOne("BarbersHub.Domain.Entities.BarberShops.BarberStyle", "BarberStyle")
+                    b.HasOne("BarbersHub.Domain.Entities.BarberShops.Style", "Style")
                         .WithMany("Comments")
-                        .HasForeignKey("BarberStyleId")
+                        .HasForeignKey("StyleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -560,7 +566,7 @@ namespace BarbersHub.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("BarberStyle");
+                    b.Navigation("Style");
 
                     b.Navigation("User");
                 });
@@ -578,9 +584,9 @@ namespace BarbersHub.Data.Migrations
 
             modelBuilder.Entity("BarbersHub.Domain.Entities.Favorites.Favorite", b =>
                 {
-                    b.HasOne("BarbersHub.Domain.Entities.BarberShops.BarberStyle", "BarberStyle")
+                    b.HasOne("BarbersHub.Domain.Entities.BarberShops.Style", "Style")
                         .WithMany("Favorites")
-                        .HasForeignKey("BarberStyleId")
+                        .HasForeignKey("StyleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -590,7 +596,7 @@ namespace BarbersHub.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("BarberStyle");
+                    b.Navigation("Style");
 
                     b.Navigation("User");
                 });
@@ -617,7 +623,7 @@ namespace BarbersHub.Data.Migrations
             modelBuilder.Entity("BarbersHub.Domain.Entities.Assets.BarberAsset", b =>
                 {
                     b.HasOne("BarbersHub.Domain.Entities.BarberShops.Barber", "Barber")
-                        .WithMany()
+                        .WithMany("Assets")
                         .HasForeignKey("BarberId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -628,7 +634,7 @@ namespace BarbersHub.Data.Migrations
             modelBuilder.Entity("BarbersHub.Domain.Entities.Assets.BarberShopAsset", b =>
                 {
                     b.HasOne("BarbersHub.Domain.Entities.BarberShops.BarberShop", "BarberShop")
-                        .WithMany()
+                        .WithMany("Assets")
                         .HasForeignKey("BarberShopId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -636,21 +642,21 @@ namespace BarbersHub.Data.Migrations
                     b.Navigation("BarberShop");
                 });
 
-            modelBuilder.Entity("BarbersHub.Domain.Entities.Assets.BarberStyleAsset", b =>
+            modelBuilder.Entity("BarbersHub.Domain.Entities.Assets.StyleAsset", b =>
                 {
-                    b.HasOne("BarbersHub.Domain.Entities.BarberShops.BarberStyle", "BarberStyle")
-                        .WithMany()
-                        .HasForeignKey("BarberStyleId")
+                    b.HasOne("BarbersHub.Domain.Entities.BarberShops.Style", "Style")
+                        .WithMany("Assets")
+                        .HasForeignKey("StyleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("BarberStyle");
+                    b.Navigation("Style");
                 });
 
             modelBuilder.Entity("BarbersHub.Domain.Entities.Assets.UserAsset", b =>
                 {
                     b.HasOne("BarbersHub.Domain.Entities.Users.User", "User")
-                        .WithMany()
+                        .WithMany("Assets")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -660,6 +666,8 @@ namespace BarbersHub.Data.Migrations
 
             modelBuilder.Entity("BarbersHub.Domain.Entities.BarberShops.Barber", b =>
                 {
+                    b.Navigation("Assets");
+
                     b.Navigation("BarberStyles");
 
                     b.Navigation("Orders");
@@ -667,11 +675,17 @@ namespace BarbersHub.Data.Migrations
 
             modelBuilder.Entity("BarbersHub.Domain.Entities.BarberShops.BarberShop", b =>
                 {
+                    b.Navigation("Assets");
+
                     b.Navigation("Barbers");
                 });
 
-            modelBuilder.Entity("BarbersHub.Domain.Entities.BarberShops.BarberStyle", b =>
+            modelBuilder.Entity("BarbersHub.Domain.Entities.BarberShops.Style", b =>
                 {
+                    b.Navigation("Assets");
+
+                    b.Navigation("BarberStyles");
+
                     b.Navigation("Comments");
 
                     b.Navigation("Favorites");
@@ -684,6 +698,8 @@ namespace BarbersHub.Data.Migrations
 
             modelBuilder.Entity("BarbersHub.Domain.Entities.Users.User", b =>
                 {
+                    b.Navigation("Assets");
+
                     b.Navigation("Comments");
 
                     b.Navigation("Favorites");
