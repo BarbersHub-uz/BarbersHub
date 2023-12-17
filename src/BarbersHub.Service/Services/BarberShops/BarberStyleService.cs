@@ -13,26 +13,39 @@ namespace BarbersHub.Service.Services.BarberShops;
 public class BarberStyleService : IBarberStyleService
 {
     private readonly IMapper _mapper;
-    private readonly IRepository<BarberStyle> _barberStyleRepository;
+    private readonly IStyleRepository _styleRepository;
+    private readonly IBarberRepository _barberRepository;
+    private readonly IBarberStyleRepository _barberStyleRepository;
 
     public BarberStyleService(
         IMapper mapper, 
-        IRepository<BarberStyle> barberStyleRepository)
+        IStyleRepository styleRepository,
+        IBarberRepository barberRepository,
+        IBarberStyleRepository barberStyleRepository)
     {
         this._mapper = mapper;
+        this._styleRepository = styleRepository;
+        this._barberRepository = barberRepository;
         this._barberStyleRepository = barberStyleRepository;
     }
 
     public async Task<BarberStyleForResultDto> AddAsync(BarberStyleForCreationDto dto)
     {
-        var barberStyle  = await this._barberStyleRepository
+        var barberData = await this._barberRepository
             .SelectAll()
-            .Where(bs => bs.BarberId == dto.BarberId && bs.StyleId == dto.StyleId && !bs.IsDeleted)
+            .Where(b => b.Id == dto.BarberId && !b.IsDeleted)
             .AsNoTracking()
             .FirstOrDefaultAsync();
+        if (barberData is null)
+            throw new BarberException(404, "Barber is not found");
 
-        if (barberStyle is not null)
-            throw new BarberException(409, "BarberStyle is already exist");
+        var styleData = await this._styleRepository
+            .SelectAll()
+            .Where(s => s.Id == dto.StyleId && !s.IsDeleted)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+        if (styleData is null)
+            throw new BarberException(404, "Style is not found");
 
         var mapped = this._mapper.Map<BarberStyle>(dto);
             
@@ -71,9 +84,26 @@ public class BarberStyleService : IBarberStyleService
 
     public async Task<BarberStyleForResultDto> ModifyAsync(long id, BarberStyleForUpdateDto dto)
     {
+        var barberData = await this._barberRepository
+           .SelectAll()
+           .Where(b => b.Id == dto.BarberId && !b.IsDeleted)
+           .AsNoTracking()
+           .FirstOrDefaultAsync();
+        if (barberData is null)
+            throw new BarberException(404, "Barber is not found");
+
+        var styleData = await this._styleRepository
+            .SelectAll()
+            .Where(s => s.Id == dto.StyleId && !s.IsDeleted)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+        if (styleData is null)
+            throw new BarberException(404, "Style is not found");
+
         var barberStyle = await this._barberStyleRepository
             .SelectAll()
             .Where(bs => bs.Id == id && !bs.IsDeleted)
+            .AsNoTracking()
             .FirstOrDefaultAsync();
 
         if (barberStyle is null)
