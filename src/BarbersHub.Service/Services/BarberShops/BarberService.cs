@@ -70,6 +70,7 @@ public class BarberService : IBarberService
         var barber = await this._barberRepository
             .SelectAll()
             .Where(b => b.Id == id && !b.IsDeleted)
+            .AsNoTracking()
             .FirstOrDefaultAsync();
         if(barber is null)
            throw new BarberException(404,"Barber is not found");
