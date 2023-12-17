@@ -7,15 +7,15 @@ using BarbersHub.Service.Services.Assets;
 using BarbersHub.Service.Services.Orders;
 using BarbersHub.Service.Interfaces.Users;
 using BarbersHub.Service.Interfaces.Orders;
+using BarbersHub.Service.Services.Accounts;
 using BarbersHub.Service.Interfaces.Assets;
 using BarbersHub.Service.Services.Favorites;
+using BarbersHub.Service.Interfaces.Accounts;
 using BarbersHub.Service.Interfaces.Favorites;
 using BarbersHub.Service.Services.BarberShops;
 using BarbersHub.Service.Services.AuthServices;
 using BarbersHub.Service.Interfaces.BarberShops;
 using BarbersHub.Service.Interfaces.AuthServices;
-using BarbersHub.Service.Interfaces.Accounts;
-using BarbersHub.Service.Services.Accounts;
 
 namespace BarbersHub.Api.Extensions;
 

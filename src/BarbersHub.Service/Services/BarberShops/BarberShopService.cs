@@ -13,18 +13,18 @@ namespace BarbersHub.Service.Services.BarberShops;
 public class BarberShopService : IBarberShopService
 {
     private readonly IMapper _mapper;
-    private readonly IRepository<BarberShop> _repository;
+    private readonly IRepository<BarberShop> _barberShopRepository;
 
     public BarberShopService(
         IMapper mapper, 
         IRepository<BarberShop> repository)
     {
         this._mapper = mapper;   
-        this._repository = repository;
+        this._barberShopRepository = repository;
     }
     public async Task<BarberShopForResultDto> AddAsync(BarberShopForCreationDto dto)
     {
-        var shop = await this._repository
+        var shop = await this._barberShopRepository
             .SelectAll()
             .Where(b => b.IsDeleted == false && b.Title.ToLower() == dto.Title.ToLower())
             .AsNoTracking()
@@ -35,14 +35,14 @@ public class BarberShopService : IBarberShopService
 
         var mapped = this._mapper.Map<BarberShop>(dto);
 
-        var result = await this._repository.InsertAsync(mapped);
+        var result = await this._barberShopRepository.InsertAsync(mapped);
 
         return this._mapper.Map<BarberShopForResultDto>(result);
     }
 
     public async Task<BarberShopForResultDto> ModifyAsync(long id, BarberShopForUpdateDto dto)
     {
-        var shop = await this._repository
+        var shop = await this._barberShopRepository
             .SelectAll()
             .Where(b => b.IsDeleted == false && b.Id == id)
             .FirstOrDefaultAsync();
@@ -53,14 +53,14 @@ public class BarberShopService : IBarberShopService
         var mapped = this._mapper.Map(dto, shop);
         mapped.UpdatedAt = DateTime.UtcNow;
 
-        var result = await this._repository.UpdateAsync(mapped);
+        var result = await this._barberShopRepository.UpdateAsync(mapped);
 
         return this._mapper.Map<BarberShopForResultDto>(result);
     }
 
     public async Task<bool> RemoveAsync(long id)
     {
-        var shop = await this._repository
+        var shop = await this._barberShopRepository
             .SelectAll()
             .Where(b => b.IsDeleted == false && b.Id == id)
             .AsNoTracking()
@@ -69,12 +69,12 @@ public class BarberShopService : IBarberShopService
         if (shop is null)
             throw new BarberException(404, "BarberShop is not found");
 
-        return await this._repository.DeleteAsync(id);
+        return await this._barberShopRepository.DeleteAsync(id);
     }
 
     public async Task<IEnumerable<BarberShopForResultDto>> RetrieveAllAsync(PaginationParams @params)
     {
-        var shops = await this._repository
+        var shops = await this._barberShopRepository
             .SelectAll()
             .Where(b => b.IsDeleted == false)
             .Include(b => b.Assets.Where(a => !a.IsDeleted))
@@ -88,7 +88,7 @@ public class BarberShopService : IBarberShopService
 
     public async Task<BarberShopForResultDto> RetrieveByIdAsync(long id)
     {
-        var shop = await this._repository
+        var shop = await this._barberShopRepository
             .SelectAll()
             .Where(b => b.IsDeleted == false && b.Id == id)
             .Include(b => b.Assets.Where(a => !a.IsDeleted))
@@ -100,5 +100,18 @@ public class BarberShopService : IBarberShopService
             throw new BarberException(404, "BarberShop is not found");
 
         return this._mapper.Map<BarberShopForResultDto>(shop);
+    }
+
+    public async Task<IEnumerable<BarberShopForResultDto>> RetrieveAllHairCutsServiceAsync()
+    {
+        var data = await this._barberShopRepository
+            .SelectAll()
+            .Where(b => b.IsDeleted == false)
+            .Include(ba => ba.Barbers.Where(ba => !ba.IsDeleted))
+            .ThenInclude(bs => bs.BarberStyles.Where(bs => !bs.IsDeleted))
+            .ThenInclude(s => s.Style)
+            
+            
+            
     }
 }
