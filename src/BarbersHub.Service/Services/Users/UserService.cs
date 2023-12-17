@@ -15,11 +15,11 @@ namespace BarbersHub.Service.Services.Users;
 public class UserService : IUserService
 {
     private readonly IMapper _mapper;
-    private readonly IRepository<User> _userRepository;
+    private readonly IUserRepository _userRepository;
 
     public UserService(
-        IRepository<User> userRepository,
-        IMapper mapper)
+        IMapper mapper,
+        IUserRepository userRepository)
     {
         this._mapper = mapper;
         this._userRepository = userRepository;
@@ -74,6 +74,7 @@ public class UserService : IUserService
         var user = await this._userRepository
             .SelectAll()
             .Where(u => u.Id == id && !u.IsDeleted)
+            .AsNoTracking()
             .FirstOrDefaultAsync();
         if(user is null)
             throw new BarberException(404, "User is not found");

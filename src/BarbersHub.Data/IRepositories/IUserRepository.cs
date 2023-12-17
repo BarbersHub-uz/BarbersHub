@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BarbersHub.Domain.Entities.Users;
 
-namespace BarbersHub.Data.IRepositories
-{
-    internal class IUserRepository
-    {
-    }
-}
+namespace BarbersHub.Data.IRepositories;
+
+public interface IUserRepository : IRepository<User>
+{   }

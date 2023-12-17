@@ -30,6 +30,7 @@ public static class ServiceExtension
         services.AddScoped<EnvironmentHelper, EnvironmentHelper>();
 
         // Repository
+        services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
         //Services

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BarbersHub.Data.DbContexts;
+using BarbersHub.Data.IRepositories;
+using BarbersHub.Domain.Entities.Users;
 
-namespace BarbersHub.Data.Repositories
+namespace BarbersHub.Data.Repositories;
+
+public class UserRepository : Repository<User> , IUserRepository
 {
-    internal class UserRepository
-    {
-    }
+    public UserRepository(AppDbContext dbContext) : base(dbContext)
+    {   }
 }
