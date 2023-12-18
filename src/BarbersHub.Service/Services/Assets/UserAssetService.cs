@@ -5,7 +5,6 @@ using BarbersHub.Data.IRepositories;
 using BarbersHub.Service.Extensions;
 using Microsoft.EntityFrameworkCore;
 using BarbersHub.Service.DTOs.Assets;
-using BarbersHub.Domain.Entities.Users;
 using BarbersHub.Service.Configurations;
 using BarbersHub.Domain.Entities.Assets;
 using BarbersHub.Service.Interfaces.Assets;
@@ -16,13 +15,13 @@ namespace BarbersHub.Service.Services.Assets;
 public class UserAssetService : IUserAssetService
 {
     private readonly IMapper _mapper;
-    private readonly IRepository<User> _userRepository;
-    private readonly IRepository<UserAsset> _userAssetRepository;
+    private readonly IUserRepository _userRepository;
+    private readonly IUserAssetRepository _userAssetRepository;
 
     public UserAssetService(
         IMapper mapper,
-        IRepository<User> userRepository,
-        IRepository<UserAsset> userAssetRepository)
+        IUserRepository userRepository,
+        IUserAssetRepository userAssetRepository)
     {
         this._mapper = mapper;
         this._userRepository = userRepository;

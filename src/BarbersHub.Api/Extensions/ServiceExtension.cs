@@ -31,6 +31,14 @@ public static class ServiceExtension
 
         // Repository
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IStyleRepository, StyleRepository>();
+        services.AddScoped<IOrderRepository, OrderRepository>();
+        services.AddScoped<IBarberRepository, BarberRepository>();
+        services.AddScoped<ICommentRepository, CommentRepository>();
+        services.AddScoped<IFavoriteRepository, FavoriteRepository>();
+        services.AddScoped<ICompletedRepository, CompletedRepository>();
+        services.AddScoped<IBarberShopRepository, BarberShopRepository>();
+        services.AddScoped<IBarberStyleRepository, BarberStyleRepository>();
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
         //Services
@@ -42,12 +50,10 @@ public static class ServiceExtension
         services.AddScoped<IBarberService, BarberService>();
         services.AddScoped<IAccountService, AccountService>();
         services.AddScoped<IFavoriteService, FavoriteService>();
-        services.AddScoped<IBarberShopService, BarberShopService>();
-        services.AddScoped<IBarberStyleService, BarberStyleService>();
-
-        //Asset Services
         services.AddScoped<IUserAssetService, UserAssetService>();
         services.AddScoped<IStyleAssetService, StyleAssetService>();
+        services.AddScoped<IBarberShopService, BarberShopService>();
+        services.AddScoped<IBarberStyleService, BarberStyleService>();
         services.AddScoped<IBarberAssetService, BarberAssetService>();
         services.AddScoped<IBarberShopAssetService, BarberShopAssetService>();
     }
