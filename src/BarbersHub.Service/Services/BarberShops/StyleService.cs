@@ -13,10 +13,10 @@ namespace BarbersHub.Service.Services.BarberShops;
 public class StyleService : IStyleService
 {
     private readonly IMapper _mapper;
-    private readonly IRepository<Style> _styleRepository;
+    private readonly IStyleRepository _styleRepository;
     public StyleService(
         IMapper mapper,
-        IRepository<Style> styleRepository)
+        IStyleRepository styleRepository)
     {
         _styleRepository = styleRepository;
         _mapper = mapper;
@@ -77,6 +77,7 @@ public class StyleService : IStyleService
         var style = await _styleRepository
             .SelectAll()
             .Where(s => s.Id == id && !s.IsDeleted )
+            .AsNoTracking()
             .FirstOrDefaultAsync();
 
         if (style is  null)
