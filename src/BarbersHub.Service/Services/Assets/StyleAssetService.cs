@@ -9,20 +9,19 @@ using BarbersHub.Service.Configurations;
 using BarbersHub.Domain.Entities.Assets;
 using BarbersHub.Service.Interfaces.Assets;
 using BarbersHub.Service.Commons.Exceptions;
-using BarbersHub.Domain.Entities.BarberShops;
 
 namespace BarbersHub.Service.Services.Assets;
 
 public class StyleAssetService : IStyleAssetService
 {
     private readonly IMapper _mapper;
-    private readonly IRepository<Style> _styleRepository;
-    private readonly IRepository<StyleAsset> _styleAssetRepository;
+    private readonly IStyleRepository _styleRepository;
+    private readonly IStyleAssetRepository _styleAssetRepository;
 
     public StyleAssetService(
         IMapper mapper,
-        IRepository<Style> styleRepository,
-        IRepository<StyleAsset> styleAssetRepository)
+        IStyleRepository styleRepository,
+        IStyleAssetRepository styleAssetRepository)
     {
         this._mapper = mapper;
         this._styleRepository = styleRepository;
