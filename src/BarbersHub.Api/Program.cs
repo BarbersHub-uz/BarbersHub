@@ -19,6 +19,20 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddCustomService();
 
+builder.Services.AddMemoryCache();
+
+// JWT Service 
+builder.Services.AddJwtService(builder.Configuration);
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Admins", policy =>
+    {
+        policy.RequireRole("Admin", "SuperAdmin");
+    });
+});
+
+
 // ==========> Logger 
 var logger = new LoggerConfiguration()
   .ReadFrom.Configuration(builder.Configuration)
@@ -57,12 +71,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseStaticFiles();
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
-
 app.UseMiddleware<ExceptionHandlerMiddleWare>();
-app.UseStaticFiles();
+
+app.UseAuthorization();
+app.UseAuthentication();
+
 app.MapControllers();
 
 app.Run();
