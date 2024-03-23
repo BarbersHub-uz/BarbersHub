@@ -1,7 +1,9 @@
+using System.Text;
 using BarbersHub.Service.Mappers;
 using BarbersHub.Service.Helpers;
 using BarbersHub.Data.Repositories;
 using BarbersHub.Data.IRepositories;
+using Microsoft.IdentityModel.Tokens;
 using BarbersHub.Service.Services.Users;
 using BarbersHub.Service.Services.Assets;
 using BarbersHub.Service.Services.Orders;
@@ -16,6 +18,7 @@ using BarbersHub.Service.Services.BarberShops;
 using BarbersHub.Service.Services.AuthServices;
 using BarbersHub.Service.Interfaces.BarberShops;
 using BarbersHub.Service.Interfaces.AuthServices;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace BarbersHub.Api.Extensions;
 
@@ -42,6 +45,11 @@ public static class ServiceExtension
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
         //Services
+        services.AddScoped<IUserAssetRepository, UserAssetRepository>();
+        services.AddScoped<IStyleAssetRepository, StyleAssetRepository>();
+        services.AddScoped<IBarberAssetRepository, BarberAssetRepository>();
+        services.AddScoped<IBarberShopAssetRepository, BarberShopAssetRepository>();
+
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IEmailService, EmailService>();
@@ -56,5 +64,30 @@ public static class ServiceExtension
         services.AddScoped<IBarberStyleService, BarberStyleService>();
         services.AddScoped<IBarberAssetService, BarberAssetService>();
         services.AddScoped<IBarberShopAssetService, BarberShopAssetService>();
+    }
+
+    public static void AddJwtService(this IServiceCollection services, IConfiguration configuration)
+    {
+
+        services.AddAuthentication(x =>
+        {
+            x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        }).AddJwtBearer(o =>
+        {
+            var Key = Encoding.UTF8.GetBytes(configuration["JWT:SecretKey"]);
+            o.SaveToken = true;
+            o.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = configuration["JWT:Issuer"],
+                ValidAudience = configuration["JWT:Audience"],
+                IssuerSigningKey = new SymmetricSecurityKey(Key),
+                ClockSkew = TimeSpan.FromMinutes(1)
+            };
+        });
     }
 }
