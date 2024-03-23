@@ -37,7 +37,16 @@ public class BarberAssetService : IBarberAssetService
             .FirstOrDefaultAsync();
         if(barber is null)
             throw new BarberException(404, "Barber is not found");
-       
+
+        if (formFile.Length > 5100000)
+            throw new BarberException(500, "Size of file must be less than 5 mb");
+
+        var extensionOfPhoto = Path.GetExtension(formFile.FileName);
+        if(extensionOfPhoto != ".jpg" || extensionOfPhoto != ".png")
+        {
+            throw new BarberException(500, "Extension of photo must be .jpg, .png");
+        }
+
         var fileName = Guid.NewGuid().ToString("N") + Path.GetExtension(formFile.FileName);
         var rootPath = Path.Combine(EnvironmentHelper.WebRootPath, "Barbers", "ProfilePhotos", fileName);
         using (var stream = new FileStream(rootPath, FileMode.Create))

@@ -2,16 +2,16 @@
 using BarbersHub.Service.DTOs.Assets;
 using BarbersHub.Domain.Entities.Users;
 using BarbersHub.Domain.Entities.Assets;
+using BarbersHub.Domain.Entities.Orders;
 using BarbersHub.Service.DTOs.Users.Users;
+using BarbersHub.Domain.Entities.Favorites;
+using BarbersHub.Service.DTOs.Orders.Orders;
 using BarbersHub.Domain.Entities.BarberShops;
 using BarbersHub.Service.DTOs.BarberShops.Styles;
 using BarbersHub.Service.DTOs.BarberShops.Barbers;
+using BarbersHub.Service.DTOs.Favorites.Favorites;
 using BarbersHub.Service.DTOs.BarberShops.BarberShops;
 using BarbersHub.Service.DTOs.BarberShops.BarberStyles;
-using BarbersHub.Domain.Entities.Favorites;
-using BarbersHub.Service.DTOs.Favorites.Favorites;
-using BarbersHub.Domain.Entities.Orders;
-using BarbersHub.Service.DTOs.Orders.Orders;
 
 namespace BarbersHub.Service.Mappers;
 
