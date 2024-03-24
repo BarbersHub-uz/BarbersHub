@@ -13,14 +13,14 @@ namespace BarbersHub.Service.Services.BarberShops;
 public class BarberShopService : IBarberShopService
 {
     private readonly IMapper _mapper;
-    private readonly IRepository<BarberShop> _barberShopRepository;
+    private readonly IBarberShopRepository _barberShopRepository;
 
     public BarberShopService(
         IMapper mapper, 
-        IRepository<BarberShop> repository)
+        IBarberShopRepository barberShopRepository)
     {
         this._mapper = mapper;   
-        this._barberShopRepository = repository;
+        this._barberShopRepository = barberShopRepository;
     }
     public async Task<BarberShopForResultDto> AddAsync(BarberShopForCreationDto dto)
     {
@@ -45,6 +45,7 @@ public class BarberShopService : IBarberShopService
         var shop = await this._barberShopRepository
             .SelectAll()
             .Where(b => b.IsDeleted == false && b.Id == id)
+            .AsNoTracking()
             .FirstOrDefaultAsync();
 
         if (shop is null)
@@ -100,18 +101,5 @@ public class BarberShopService : IBarberShopService
             throw new BarberException(404, "BarberShop is not found");
 
         return this._mapper.Map<BarberShopForResultDto>(shop);
-    }
-
-    public async Task<IEnumerable<BarberShopForResultDto>> RetrieveAllHairCutsServiceAsync()
-    {
-        var data = await this._barberShopRepository
-            .SelectAll()
-            .Where(b => b.IsDeleted == false)
-            .Include(ba => ba.Barbers.Where(ba => !ba.IsDeleted))
-            .ThenInclude(bs => bs.BarberStyles.Where(bs => !bs.IsDeleted))
-            .ThenInclude(s => s.Style)
-            
-            
-            
     }
 }

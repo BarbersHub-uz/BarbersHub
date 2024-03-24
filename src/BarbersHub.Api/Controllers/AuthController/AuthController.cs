@@ -8,22 +8,20 @@ namespace BarbersHub.Api.Controllers.AuthController;
 
 public class AuthController : BaseController
 {
-    private readonly IAccountService _accountService;
+    private readonly IAccountService accountService;
 
-    public AuthController(
-        IAuthService authService,
-        IAccountService accountService)
+    public AuthController(IAccountService accountService, IAuthService authService)
     {
-        this._accountService = accountService;
+        this.accountService = accountService;
     }
 
     [HttpPost]
     [Route("login")]
     public async ValueTask<IActionResult> login([FromBody] LoginDto loginDto)
-       => Ok(new Response
-       {
-           StatusCode = 200,
-           Message = "Success",
-           Data = await _accountService.LoginAsync(loginDto)
-       });
+        => Ok(new Response
+        {
+            StatusCode = 200,
+            Message = "Success",
+            Data = await accountService.LoginAsync(loginDto)
+        });
 }

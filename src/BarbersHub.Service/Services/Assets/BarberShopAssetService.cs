@@ -9,20 +9,19 @@ using BarbersHub.Domain.Entities.Assets;
 using BarbersHub.Service.Configurations;
 using BarbersHub.Service.Interfaces.Assets;
 using BarbersHub.Service.Commons.Exceptions;
-using BarbersHub.Domain.Entities.BarberShops;
 
 namespace BarbersHub.Service.Services.Assets;
 
 public class BarberShopAssetService : IBarberShopAssetService
 {
     private readonly IMapper _mapper;
-    private readonly IRepository<BarberShop> _barberShopRepository;
-    private readonly IRepository<BarberShopAsset> _barberShopAssetRepository;
+    private readonly IBarberShopRepository _barberShopRepository;
+    private readonly IBarberShopAssetRepository _barberShopAssetRepository;
 
     public BarberShopAssetService(
         IMapper mapper,
-        IRepository<BarberShop> barberShopRepository,
-        IRepository<BarberShopAsset> barberShopAssetRepository
+        IBarberShopRepository barberShopRepository,
+        IBarberShopAssetRepository barberShopAssetRepository
         )
     {
         this._mapper = mapper;

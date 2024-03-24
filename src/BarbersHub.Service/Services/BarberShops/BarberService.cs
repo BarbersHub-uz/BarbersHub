@@ -9,23 +9,35 @@ using BarbersHub.Domain.Entities.BarberShops;
 using BarbersHub.Service.DTOs.ChangePassword;
 using BarbersHub.Service.Interfaces.BarberShops;
 using BarbersHub.Service.DTOs.BarberShops.Barbers;
+
 namespace BarbersHub.Service.Services.BarberShops;
 
 public class BarberService : IBarberService
 {
     private readonly IMapper _mapper;
-    private readonly IRepository<Barber> _barberRepository;
+    private readonly IBarberRepository _barberRepository;
+    private readonly IBarberShopRepository _barberShopRepository;
 
     public BarberService(
         IMapper mapper,
-        IRepository<Barber> barberRepository)
+        IBarberRepository barberRepository,
+        IBarberShopRepository barberShopRepository)
     {
         this._mapper = mapper;
         this._barberRepository = barberRepository;
+        this._barberShopRepository = barberShopRepository;
     }
 
     public async Task<BarberForResultDto> AddAsync(BarberForCreationDto dto)
     {
+        var barberShopData = await this._barberShopRepository
+            .SelectAll()
+            .Where(bs => bs.Id == dto.BarberShopId && !bs.IsDeleted)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+        if (barberShopData is null)
+            throw new BarberException(404, "BarberShop is not found");
+
         var barber = await this._barberRepository
             .SelectAll()
             .Where(b => b.UserName.ToLower() == dto.UserName.ToLower() && !b.IsDeleted)
@@ -47,9 +59,18 @@ public class BarberService : IBarberService
 
     public async Task<BarberForResultDto> ModifyAsync(long id, BarberForUpdateDto dto)
     {
+        var barberShopData = await this._barberShopRepository
+            .SelectAll()
+            .Where(bs => bs.Id == dto.BarberShopId)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+        if (barberShopData is null)
+            throw new BarberException(404, "BarberShop is not found");
+
         var barber = await this._barberRepository
             .SelectAll()
             .Where(b => b.Id == id && !b.IsDeleted)
+            .AsNoTracking()
             .FirstOrDefaultAsync();
         if(barber is null)
            throw new BarberException(404,"Barber is not found");

@@ -13,25 +13,39 @@ namespace BarbersHub.Service.Services.Orders;
 public class OrderService : IOrderService
 {
     private readonly IMapper _mapper;
-    private readonly IRepository<Order> _orderRepository;
+    private readonly IUserRepository _userRepository;
+    private readonly IOrderRepository _orderRepository;
+    private readonly IBarberRepository _barberRepository;
 
     public OrderService(
         IMapper mapper,
-        IRepository<Order> orderRepository)
+        IUserRepository userRepository,
+        IOrderRepository orderRepository,
+        IBarberRepository barberRepository)
     {
         this._mapper = mapper;
+        this._userRepository = userRepository;
         this._orderRepository = orderRepository;
+        this._barberRepository = barberRepository;
     }
 
     public async Task<OrderForResultDto> AddAsync(OrderForCreationDto dto)
     {
-        var data = await this._orderRepository
+        var userData = await this._userRepository
             .SelectAll()
-            .Where(o => o.UserId == dto.UserId && o.BarberId == dto.BarberId && !o.IsDeleted)
+            .Where(u => u.Id == dto.UserId && !u.IsDeleted)
             .AsNoTracking()
             .FirstOrDefaultAsync();
-        if(data is not null)
-            throw new BarberException(409,"Order is already exist");
+        if (userData is null)
+            throw new BarberException(404, "User is not found");
+
+        var barberData = await this._barberRepository
+            .SelectAll()
+            .Where(b => b.Id == dto.BarberId && !b.IsDeleted)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+        if (barberData is null)
+            throw new BarberException(404, "Barber is not found");
 
         var mappedData = this._mapper.Map<Order>(dto);
         var createdData = await this._orderRepository.InsertAsync(mappedData);
@@ -44,9 +58,26 @@ public class OrderService : IOrderService
         var data = await this._orderRepository
             .SelectAll()
             .Where(o => o.Id == id && !o.IsDeleted)
+            .AsNoTracking()
             .FirstOrDefaultAsync();
         if(data is null)
             throw new BarberException(404,"Order is not found");
+
+        var userData = await this._userRepository
+            .SelectAll()
+            .Where(u => u.Id == dto.UserId && !u.IsDeleted)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+        if (userData is null)
+            throw new BarberException(404, "User is not found");
+
+        var barberData = await this._barberRepository
+            .SelectAll()
+            .Where(b => b.Id == dto.BarberId && !b.IsDeleted)
+            .AsNoTracking()
+            .FirstOrDefaultAsync();
+        if (barberData is null)
+            throw new BarberException(404, "Barber is not found");
 
         var mappedData = this._mapper.Map(dto, data);
         mappedData.UpdatedAt = DateTime.UtcNow;
